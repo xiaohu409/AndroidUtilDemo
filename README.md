@@ -3,6 +3,7 @@
 + ToastUtil
 + SharePreferenceUtil
 + LogUtil
++ DateTimeUtil
 
 ## 使用教程
 ### 1.引用类库，在module的build.gradle添加依赖
@@ -24,9 +25,10 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //初始
+        //初始化
         ToastUtil.initToastUtil(this);
         SharePreUtil.initSharePreUtil(this, "test.xml");
+        LogUtil.setDebug(BuildConfig.DEBUG);
     }
 
     @Override
@@ -42,6 +44,8 @@ public class App extends Application {
 ```java
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         SharePreUtil.getInstance().put("height", 1.75);
         SharePreUtil.getInstance().put("man", true);
         ToastUtil.showLong(SharePreUtil.getInstance().getString("name"));
+        LogUtil.logDebug(TAG, DateTimeUtil.getDateTime("yyyy-MM-dd HH:mm:ss"));
     }
 }
 ```
