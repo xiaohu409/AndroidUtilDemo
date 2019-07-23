@@ -5,7 +5,7 @@
 + LogUtil
 
 ## 使用教程
-### 1.引用类库
+### 1.引用类库，在module的build.gradle添加依赖
 ```groovy
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -24,6 +24,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //初始
         ToastUtil.initToastUtil(this);
         SharePreUtil.initSharePreUtil(this, "test.xml");
     }
@@ -31,6 +32,7 @@ public class App extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
+        //释放引用
         ToastUtil.releaseContext();
         SharePreUtil.release();
     }
