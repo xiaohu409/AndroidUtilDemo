@@ -5,7 +5,7 @@
 + LogUtil
 
 ## 使用教程
-### 1.引用类型
+### 1.引用类库
 ```groovy
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
