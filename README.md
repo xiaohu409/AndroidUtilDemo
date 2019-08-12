@@ -42,23 +42,39 @@ public class App extends Application {
 }
 ```
 ### 3.示例代码
+#### （1）工具
 ```java
-public class MainActivity extends AppCompatActivity {
-
-    private static final String TAG = "MainActivity";
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-//        ToastUtil.showLong("显示");
-        SharePreUtil.getInstance().put("name", "胡涛");
-        SharePreUtil.getInstance().put("age", 22);
-        SharePreUtil.getInstance().put("height", 1.75);
-        SharePreUtil.getInstance().put("man", true);
-        ToastUtil.showLong(SharePreUtil.getInstance().getString("name"));
-        LogUtil.logDebug(TAG, DateTimeUtil.getDateTime("yyyy-MM-dd HH:mm:ss"));
-    }
-}
+    SharePreUtil.getInstance().put("name", "胡涛");
+    SharePreUtil.getInstance().put("age", 22);
+    SharePreUtil.getInstance().put("height", 1.75);
+    SharePreUtil.getInstance().put("man", true);
+    ToastUtil.showLong(SharePreUtil.getInstance().getString("name"));
+    LogUtil.logDebug(TAG, DateTimeUtil.getDateTime("yyyy-MM-dd HH:mm:ss"));
 ```
+#### （2）扫描蓝牙设备
+```java
+    /**
+     * 扫码蓝牙
+     */
+    private void scanBluetooth() {
+        final Set<BluetoothDevice> deviceSet = new HashSet<>();
+        BluetoothUtil bluetoothUtil = new BluetoothUtil(this);
+        //设置蓝牙扫描回调方法
+        bluetoothUtil.setBluetoothUtilCallback(new BluetoothUtil.BluetoothUtilCallback() {
+            @Override
+            public void onScanDevice(BluetoothDevice device) {
+//                Log.d(TAG, device.getName() + ":" + device.getAddress());
+                deviceSet.add(device);
+            }
 
+            @Override
+            public void onStop() {
+                System.out.println(deviceSet);
+            }
+        });
+        //打开蓝牙
+        bluetoothUtil.openBluetooth();
+        //开始扫描
+        bluetoothUtil.startDiscoverBluetooth();
+    }
+```
