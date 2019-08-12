@@ -4,6 +4,7 @@
 + SharePreferenceUtil
 + LogUtil
 + DateTimeUtil
++ BluetoothUtil
 
 ## 使用教程
 ### 1.引用类库，在module的build.gradle添加依赖
