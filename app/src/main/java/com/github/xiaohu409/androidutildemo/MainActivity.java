@@ -74,9 +74,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ToastUtil.showShort("你拒绝了此权限");
     }
 
+    /**
+     * 扫码蓝牙
+     */
     private void scanBluetooth() {
         final Set<BluetoothDevice> deviceSet = new HashSet<>();
         BluetoothUtil bluetoothUtil = new BluetoothUtil(this);
+        //设置蓝牙扫描回调方法
         bluetoothUtil.setBluetoothUtilCallback(new BluetoothUtil.BluetoothUtilCallback() {
             @Override
             public void onScanDevice(BluetoothDevice device) {
@@ -89,7 +93,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 System.out.println(deviceSet);
             }
         });
+        //打开蓝牙
         bluetoothUtil.openBluetooth();
+        //开始扫描
         bluetoothUtil.startDiscoverBluetooth();
     }
+
+
 }
