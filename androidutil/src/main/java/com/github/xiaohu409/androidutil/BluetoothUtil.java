@@ -21,6 +21,10 @@ public class BluetoothUtil {
     private BluetoothUtilCallback bluetoothUtilCallback;
     private Handler handler;
 
+    /**
+     * 构造方法
+     * @param context
+     */
     public BluetoothUtil(Context context) {
         if (!context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             ToastUtil.showShort("不支持低功耗蓝牙");
@@ -32,12 +36,18 @@ public class BluetoothUtil {
         }
     }
 
+    /**
+     * 打开蓝牙
+     */
     public void openBluetooth() {
         if (bluetoothAdapter != null && !bluetoothAdapter.isEnabled()) {
             bluetoothAdapter.enable();
         }
     }
 
+    /**
+     * 开始扫描
+     */
     public void startDiscoverBluetooth() {
         handler.postDelayed(new Runnable() {
             @Override
@@ -49,12 +59,18 @@ public class BluetoothUtil {
         bluetoothAdapter.startLeScan(leScanCallback);
     }
 
+    /**
+     * 关闭蓝牙
+     */
     public void closeBluetooth() {
         if (bluetoothAdapter != null && bluetoothAdapter.isEnabled()) {
             bluetoothAdapter.disable();
         }
     }
 
+    /**
+     * 扫描回调
+     */
     private BluetoothAdapter.LeScanCallback leScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
         public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
@@ -64,11 +80,18 @@ public class BluetoothUtil {
         }
     };
 
+    /**
+     * 回调方法
+     */
     public interface BluetoothUtilCallback {
         void onScanDevice(BluetoothDevice device);
         void onStop();
     }
 
+    /**
+     * 设置回调
+     * @param bluetoothUtilCallback
+     */
     public void setBluetoothUtilCallback(BluetoothUtilCallback bluetoothUtilCallback) {
         this.bluetoothUtilCallback = bluetoothUtilCallback;
     }
