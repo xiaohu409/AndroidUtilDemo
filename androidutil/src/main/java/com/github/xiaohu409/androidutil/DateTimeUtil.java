@@ -1,7 +1,9 @@
 package com.github.xiaohu409.androidutil;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -24,4 +26,45 @@ public class DateTimeUtil {
         SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.CHINA);
         return dateFormat.format(calendar.getTime());
     }
+
+    /**
+     * 格式化日期
+     * @param format
+     * @param dateTime
+     * @return
+     */
+    public static String formatDateTime(String format, String dateTime) {
+        String result = "";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.CHINA);
+        try {
+            Date date = dateFormat.parse(dateTime);
+            result = dateFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 格式化时间戳
+     * @param format
+     * @param time
+     * @return
+     */
+    public static String formatDateTime(String format, long time) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.CHINA);
+        return dateFormat.format(getDate(time));
+    }
+
+    /**
+     * 获取date
+     * @param time
+     * @return
+     */
+    public static Date getDate(long time) {
+        Date date = new Date();
+        date.setTime(time);
+        return date;
+    }
+
 }
