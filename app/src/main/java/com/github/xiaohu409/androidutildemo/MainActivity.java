@@ -12,23 +12,31 @@ import com.github.xiaohu409.androidutil.DateTimeUtil;
 import com.github.xiaohu409.androidutil.LogUtil;
 import com.github.xiaohu409.androidutil.SharePreUtil;
 import com.github.xiaohu409.androidutil.ToastUtil;
-import com.github.xiaohu409.androidutildemo.base.BaseActivity;
+import com.github.xiaohu409.androidutildemo.base.BaseUIActivity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseUIActivity {
 
     private static final String TAG = "MainActivity";
 
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+////        setContentView(R.layout.activity_main);
+////        initUI();
+//        A a = new A();
+//        getLifecycle().addObserver(a);
+//    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initUI();
+    public int getLayoutId() {
+        return R.layout.activity_main;
     }
 
-    private void initUI() {
+    @Override
+    public void initUI() {
         Button utilBtn = findViewById(R.id.test_util_btn_id);
         utilBtn.setOnClickListener(this);
         Button bluetoothBtn = findViewById(R.id.bluetooth_btn_id);
@@ -99,5 +107,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         bluetoothUtil.startDiscoverBluetooth();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
+    @Override
+    public void bindData() {
+        super.bindData();
+    }
 }
