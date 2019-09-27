@@ -78,3 +78,7 @@ public class App extends Application {
         bluetoothUtil.startDiscoverBluetooth();
     }
 ```
+
+# MVC架构
+    1.流程 view -> controller -> model -> view
+
