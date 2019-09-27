@@ -1,5 +1,3 @@
-
-
 package com.github.xiaohu409.androidutildemo.mvp.net;
 
 import com.github.xiaohu409.androidutildemo.BuildConfig;
