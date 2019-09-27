@@ -6,9 +6,6 @@ package com.github.xiaohu409.androidutildemo.mvc.net;
 
 import com.github.xiaohu409.androidutildemo.BuildConfig;
 
-import net.sytm.sansixian.BuildConfig;
-import net.sytm.sansixian.base.App;
-
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -22,15 +19,16 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 public class RetrofitUtil {
 
-    private static final int timeout = 100;
+    private static final int TIMEOUT = 100;
+    private static final String IP = "http://www.baidu.com";
     private Retrofit retrofit;
     private static RetrofitUtil retrofitUtil;
 
     private RetrofitUtil() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                .connectTimeout(timeout, TimeUnit.SECONDS)
-                .readTimeout(timeout, TimeUnit.SECONDS)
-                .writeTimeout(timeout, TimeUnit.SECONDS);
+                .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(TIMEOUT, TimeUnit.SECONDS);
 
         if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -39,7 +37,7 @@ public class RetrofitUtil {
         }
         retrofit = new Retrofit.Builder()
                 .client(builder.build())
-                .baseUrl(App.IP)
+                .baseUrl(IP)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
@@ -60,18 +58,4 @@ public class RetrofitUtil {
         return retrofit;
     }
 
-//    public static Retrofit getRetrofit(String ip) {
-//        OkHttpClient httpClient = new OkHttpClient();
-//        if (BuildConfig.DEBUG) {
-//            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-//            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-//            httpClient = new OkHttpClient.Builder().addInterceptor(logging).build();
-//        }
-//        return new Retrofit.Builder()
-//                .client(httpClient)
-//                .baseUrl(ip)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .addConverterFactory(ScalarsConverterFactory.create())
-//                .build();
-//    }
 }
