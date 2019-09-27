@@ -3,18 +3,30 @@
     package="com.github.xiaohu409.androidutildemo">
 
     <application
+        android:name=".base.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name="com.github.xiaohu409.androidutildemo.base.App">
-        <activity android:name="com.github.xiaohu409.androidutildemo.MainActivity">
+        android:theme="@style/AppTheme">
+        <activity android:name=".mvc.controller.LoginControllerActivity"></activity>
+        <activity android:name=".mvp.view.LoginActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="xiaohu409.github.com"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
     </application>
