@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2018 沈阳添美科技有限公司
- */
+
 
 package com.github.xiaohu409.androidutildemo.mvc.net;
 
