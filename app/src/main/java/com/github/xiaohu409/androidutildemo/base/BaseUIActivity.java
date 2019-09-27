@@ -27,4 +27,5 @@ public abstract class BaseUIActivity extends BaseActivity implements BaseUI, Bas
     public void bindData() {
 
     }
+
 }
