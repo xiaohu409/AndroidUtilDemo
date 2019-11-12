@@ -81,7 +81,43 @@ public class App extends Application {
         bluetoothUtil.startDiscoverBluetooth();
     }
 ```
+#### （3） Retrofit2 + RxJava2 示例
+```java
+    public class LoginModelImp implements LoginModel<LoginBean> {
 
+    @Override
+    public void login(Map<String, Object> param, final LoginView<LoginBean> view) {
+        TMApiManager.newInstance()
+                .getApiService()
+                .login(param)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<LoginBean>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                System.out.println("onSubscribe " + Thread.currentThread().getName());
+            }
+
+            @Override
+            public void onNext(LoginBean value) {
+                System.out.println("onNext " + Thread.currentThread().getName());
+                view.onSuccess(value);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                System.out.println("onError " + Thread.currentThread().getName());
+                view.onFail(e);
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+}
+```
 # MVC架构
     1.流程 view -> controller -> model -> view
     
