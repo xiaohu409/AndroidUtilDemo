@@ -10,31 +10,22 @@ package com.github.xiaohu409.androidutildemo.mvc.bean;
  */
 public class BaseBean {
 
-    private boolean error;
-    private int code;
-    private String msg;
+    private int errorCode;
+    private String errorMsg;
 
-    public boolean isError() {
-        return error;
+    public int getErrorCode() {
+        return errorCode;
     }
 
-    public void setError(boolean error) {
-        this.error = error;
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
     }
 
-    public int getCode() {
-        return code;
+    public String getErrorMsg() {
+        return errorMsg;
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
 }

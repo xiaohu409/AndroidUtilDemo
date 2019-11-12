@@ -2,6 +2,7 @@ package com.github.xiaohu409.androidutildemo;
 
 import android.Manifest;
 import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.github.xiaohu409.androidutil.LogUtil;
 import com.github.xiaohu409.androidutil.SharePreUtil;
 import com.github.xiaohu409.androidutil.ToastUtil;
 import com.github.xiaohu409.androidutildemo.base.BaseUIActivity;
+import com.github.xiaohu409.androidutildemo.mvc.controller.LoginControllerActivity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -41,6 +43,8 @@ public class MainActivity extends BaseUIActivity {
         utilBtn.setOnClickListener(this);
         Button bluetoothBtn = findViewById(R.id.bluetooth_btn_id);
         bluetoothBtn.setOnClickListener(this);
+        Button loginBtn = findViewById(R.id.login_btn_id);
+        loginBtn.setOnClickListener(this);
     }
 
     @Override
@@ -66,6 +70,10 @@ public class MainActivity extends BaseUIActivity {
                 else {
                     scanBluetooth();
                 }
+                break;
+            case R.id.login_btn_id:
+                //测试登录
+                startActivity(new Intent(this, LoginControllerActivity.class));
                 break;
         }
     }

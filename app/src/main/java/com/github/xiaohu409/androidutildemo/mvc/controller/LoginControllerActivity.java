@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.github.xiaohu409.androidutil.ToastUtil;
 import com.github.xiaohu409.androidutildemo.R;
@@ -64,20 +65,20 @@ public class LoginControllerActivity extends AppCompatActivity implements View.O
         }
         Map<String, Object> param = new HashMap<>();
         param.put("username", username);
-        param.put("pass", pass);
+        param.put("password", pass);
         loginModel.login(param, new LoginView<LoginBean>() {
             @Override
             public void onSuccess(LoginBean loginBean) {
-               if (loginBean.isError()) {
-                   ToastUtil.showShort(loginBean.getMsg());
+               if (loginBean.getErrorCode() != 0) {
+                   ToastUtil.showShort(loginBean.getErrorMsg());
                    return;
                }
-               long id = loginBean.getMemberId();
+               long id = loginBean.getData().getId();
             }
 
             @Override
             public void onFail(Throwable t) {
-
+                ToastUtil.showShort(t.getMessage());
             }
         });
     }

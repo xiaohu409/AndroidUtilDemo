@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
@@ -16,7 +17,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class RetrofitUtil {
 
     private static final int TIMEOUT = 100;
-    private static final String IP = "http://www.baidu.com";
+    private static final String IP = "https://www.wanandroid.com";
     private Retrofit retrofit;
     private static RetrofitUtil retrofitUtil;
 
@@ -34,6 +35,7 @@ public class RetrofitUtil {
         retrofit = new Retrofit.Builder()
                 .client(builder.build())
                 .baseUrl(IP)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
