@@ -7,6 +7,7 @@
 + BluetoothUtil
 + MVC Model
 + MVP Model
++ Retrofit2 + Rxjava2
 
 ## 使用教程
 ### 1.引用类库，在module的build.gradle添加依赖
@@ -83,4 +84,7 @@ public class App extends Application {
 
 # MVC架构
     1.流程 view -> controller -> model -> view
+    
+# MVP架构
+    1.流程 view -> presenter -> model -> presenter -> view
 
