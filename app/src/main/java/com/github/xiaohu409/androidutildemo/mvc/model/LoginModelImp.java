@@ -50,7 +50,7 @@ public class LoginModelImp implements LoginModel<LoginBean> {
             @Override
             public void onError(Throwable e) {
                 System.out.println("onError " + Thread.currentThread().getName());
-                //view.onFail(e);
+                view.onFail(e);
             }
 
             @Override
