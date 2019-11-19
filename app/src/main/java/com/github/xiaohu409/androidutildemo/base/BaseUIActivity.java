@@ -5,6 +5,9 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * 项目名称：AndroidUtilDemo
  * 文件名称：
@@ -15,12 +18,25 @@ import androidx.annotation.Nullable;
  */
 public abstract class BaseUIActivity extends BaseActivity implements BaseUI, BaseData, View.OnClickListener {
 
+    Unbinder unbinder;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        unbinder = ButterKnife.bind(this);
         initUI();
         bindData();
+    }
+
+    @Override
+    public void initUI() {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 
     @Override
@@ -28,4 +44,10 @@ public abstract class BaseUIActivity extends BaseActivity implements BaseUI, Bas
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+        unbinder = null;
+    }
 }

@@ -1,6 +1,7 @@
 package com.github.xiaohu409.androidutildemo.base;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.github.xiaohu409.androidutil.LogUtil;
 import com.github.xiaohu409.androidutil.SharePreUtil;
@@ -17,9 +18,12 @@ import com.github.xiaohu409.androidutildemo.BuildConfig;
  */
 public class App extends Application {
 
+    public static App instance;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         //初始化
         ToastUtil.initToastUtil(this);
         SharePreUtil.initSharePreUtil(this, "test.xml");
@@ -32,5 +36,11 @@ public class App extends Application {
         //释放引用
         ToastUtil.releaseContext();
         SharePreUtil.release();
+        instance = null;
     }
+
+    public static App getInstance() {
+        return instance;
+    }
+
 }

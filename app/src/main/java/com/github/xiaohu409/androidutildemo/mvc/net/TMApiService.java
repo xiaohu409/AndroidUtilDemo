@@ -24,6 +24,4 @@ public interface TMApiService {
     @FormUrlEncoded
     Observable<LoginBean> login(@FieldMap Map<String, Object> param);
 
-
-
 }

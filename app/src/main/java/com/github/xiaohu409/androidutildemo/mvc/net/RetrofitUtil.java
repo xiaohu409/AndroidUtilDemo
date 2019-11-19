@@ -1,6 +1,11 @@
 package com.github.xiaohu409.androidutildemo.mvc.net;
 
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.github.xiaohu409.androidutildemo.BuildConfig;
+import com.github.xiaohu409.androidutildemo.base.App;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,10 +27,13 @@ public class RetrofitUtil {
     private static RetrofitUtil retrofitUtil;
 
     private RetrofitUtil() {
+        ClearableCookieJar cookieJar =
+                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(App.getInstance()));
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(TIMEOUT, TimeUnit.SECONDS);
+                .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
+                .cookieJar(cookieJar);
 
         if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
