@@ -1,6 +1,5 @@
 package com.github.xiaohu409.androidutildemo.mvc.controller;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginControllerActivity extends BaseUIActivity {

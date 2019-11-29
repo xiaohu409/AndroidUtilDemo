@@ -1,7 +1,6 @@
 package com.github.xiaohu409.androidutildemo.base;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.github.xiaohu409.androidutil.LogUtil;
 import com.github.xiaohu409.androidutil.SharePreUtil;
