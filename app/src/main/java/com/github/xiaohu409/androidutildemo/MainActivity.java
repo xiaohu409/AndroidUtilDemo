@@ -8,16 +8,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.xiaohu409.androidutil.BluetoothUtil;
 import com.github.xiaohu409.androidutil.DateTimeUtil;
 import com.github.xiaohu409.androidutil.LogUtil;
 import com.github.xiaohu409.androidutil.SharePreUtil;
 import com.github.xiaohu409.androidutil.ToastUtil;
 import com.github.xiaohu409.androidutildemo.base.BaseUIActivity;
+import com.github.xiaohu409.androidutildemo.bean.TestBean;
 import com.github.xiaohu409.androidutildemo.mvc.controller.LoginControllerActivity;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import butterknife.ButterKnife;
 
 public class MainActivity extends BaseUIActivity {
 
@@ -45,6 +50,8 @@ public class MainActivity extends BaseUIActivity {
         bluetoothBtn.setOnClickListener(this);
         Button loginBtn = findViewById(R.id.login_btn_id);
         loginBtn.setOnClickListener(this);
+        Button testFastJsonBtn = findViewById(R.id.test_fast_btn_id);
+        testFastJsonBtn.setOnClickListener(this);
     }
 
     @Override
@@ -74,6 +81,14 @@ public class MainActivity extends BaseUIActivity {
             case R.id.login_btn_id:
                 //测试登录
                 startActivity(new Intent(this, LoginControllerActivity.class));
+                break;
+            case R.id.test_fast_btn_id:
+                TestBean bean = new TestBean();
+                bean.setId(1L);
+                bean.setName("胡涛");
+                bean.setAge(30);
+                String json = JSON.toJSONString(bean, SerializerFeature.WriteMapNullValue);
+                LogUtil.logDebug(TAG, json);
                 break;
         }
     }
