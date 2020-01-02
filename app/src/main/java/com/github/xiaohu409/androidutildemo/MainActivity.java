@@ -4,7 +4,6 @@ import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,11 +17,10 @@ import com.github.xiaohu409.androidutil.ToastUtil;
 import com.github.xiaohu409.androidutildemo.base.BaseUIActivity;
 import com.github.xiaohu409.androidutildemo.bean.TestBean;
 import com.github.xiaohu409.androidutildemo.mvc.controller.LoginControllerActivity;
+import com.github.xiaohu409.androidutildemo.mvc.controller.WorkManagerControllerActivity;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import butterknife.ButterKnife;
 
 public class MainActivity extends BaseUIActivity {
 
@@ -52,6 +50,9 @@ public class MainActivity extends BaseUIActivity {
         loginBtn.setOnClickListener(this);
         Button testFastJsonBtn = findViewById(R.id.test_fast_btn_id);
         testFastJsonBtn.setOnClickListener(this);
+
+        Button workMangagerBtn = findViewById(R.id.work_btn_id);
+        workMangagerBtn.setOnClickListener(this);
     }
 
     @Override
@@ -80,15 +81,21 @@ public class MainActivity extends BaseUIActivity {
                 break;
             case R.id.login_btn_id:
                 //测试登录
+
                 startActivity(new Intent(this, LoginControllerActivity.class));
                 break;
             case R.id.test_fast_btn_id:
+                //Parcelable
                 TestBean bean = new TestBean();
                 bean.setId(1L);
                 bean.setName("胡涛");
                 bean.setAge(30);
                 String json = JSON.toJSONString(bean, SerializerFeature.WriteMapNullValue);
                 LogUtil.logDebug(TAG, json);
+                break;
+            case R.id.work_btn_id:
+                //测试worker
+                startActivity(new Intent(this, WorkManagerControllerActivity.class));
                 break;
         }
     }
