@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvc.controller.LoginControllerActivity"></activity>
+        <activity android:name=".mvc.controller.WorkManagerControllerActivity"></activity>
+        <activity android:name=".mvc.controller.LoginControllerActivity" />
         <activity android:name=".mvp.view.LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

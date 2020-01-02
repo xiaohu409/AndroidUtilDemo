@@ -47,4 +47,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
     implementation 'com.alibaba:fastjson:1.2.62'
+
+    def work_version = "2.2.0"
+
+    // (Java only)
+    implementation "androidx.work:work-runtime:$work_version"
 }
