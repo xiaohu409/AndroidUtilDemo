@@ -11,6 +11,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        viewBinding {
+            enabled=true
+        }
     }
     buildTypes {
         debug {
@@ -28,7 +31,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "androidx.appcompat:appcompat:${rootProject.ext.androidXVersion}"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -47,9 +50,8 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
     implementation 'com.alibaba:fastjson:1.2.62'
-
-    def work_version = "2.2.0"
-
+    def work_version = "2.3.2"
     // (Java only)
     implementation "androidx.work:work-runtime:$work_version"
+    implementation files('libs/pushservice-6.7.3.20.jar')
 }

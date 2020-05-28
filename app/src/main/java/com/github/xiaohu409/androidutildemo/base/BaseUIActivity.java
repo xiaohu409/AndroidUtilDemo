@@ -24,6 +24,7 @@ public abstract class BaseUIActivity extends BaseActivity implements BaseUI, Bas
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+//        setContentView(getView());
         unbinder = ButterKnife.bind(this);
         initUI();
         bindData();

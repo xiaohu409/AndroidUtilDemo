@@ -26,6 +26,11 @@ public class LoginActivity extends BaseUIActivity {
     }
 
     @Override
+    public View getView() {
+        return null;
+    }
+
+    @Override
     public void initUI() {
         userEt = findViewById(R.id.username_et_id);
         passEt = findViewById(R.id.pass_et_id);
@@ -35,7 +40,6 @@ public class LoginActivity extends BaseUIActivity {
 
     @Override
     public void bindData() {
-        super.bindData();
         aPresenter = new APresenter();
     }
 

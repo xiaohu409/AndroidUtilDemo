@@ -2,6 +2,8 @@ package com.github.xiaohu409.androidutildemo.base;
 
 import android.app.Application;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.github.xiaohu409.androidutil.LogUtil;
 import com.github.xiaohu409.androidutil.SharePreUtil;
 import com.github.xiaohu409.androidutil.ToastUtil;
@@ -27,6 +29,7 @@ public class App extends Application {
         ToastUtil.initToastUtil(this);
         SharePreUtil.initSharePreUtil(this, "test.xml");
         LogUtil.setDebug(BuildConfig.DEBUG);
+        initPush();
     }
 
     @Override
@@ -42,4 +45,8 @@ public class App extends Application {
         return instance;
     }
 
+    private void initPush() {
+        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY,
+                "");
+    }
 }

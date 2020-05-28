@@ -1,8 +1,8 @@
 package com.github.xiaohu409.androidutildemo.mvc.controller;
 
+import android.view.View;
 import android.widget.TextView;
 
-import androidx.lifecycle.Observer;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
@@ -21,6 +21,11 @@ public class WorkManagerControllerActivity extends BaseUIActivity {
     @Override
     public int getLayoutId() {
         return R.layout.activity_work_manager_controller;
+    }
+
+    @Override
+    public View getView() {
+        return null;
     }
 
     @Override

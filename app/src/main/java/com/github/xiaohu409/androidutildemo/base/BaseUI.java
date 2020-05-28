@@ -1,5 +1,9 @@
 package com.github.xiaohu409.androidutildemo.base;
 
+import android.view.View;
+
+import com.github.xiaohu409.androidutildemo.mvp.contract.AContract;
+
 /**
  * 项目名称：AndroidUtilDemo
  * 文件名称：
@@ -16,4 +20,6 @@ public interface BaseUI {
     void initUI();
 
     int getLayoutId();
+
+    View getView();
 }

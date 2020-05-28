@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.github.xiaohu409.androidutil.ToastUtil;
 import com.github.xiaohu409.androidutildemo.R;
 import com.github.xiaohu409.androidutildemo.base.BaseUIActivity;
@@ -36,7 +38,12 @@ public class LoginControllerActivity extends BaseUIActivity {
         return R.layout.activity_login_controller;
     }
 
-//    @Override
+    @Override
+    public View getView() {
+        return null;
+    }
+
+    //    @Override
 //    public void initUI() {
 //        userEt = findViewById(R.id.username_et_id);
 //        passEt = findViewById(R.id.pass_et_id);
