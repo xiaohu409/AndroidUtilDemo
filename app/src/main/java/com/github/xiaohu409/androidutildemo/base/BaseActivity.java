@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2018 沈阳添美科技有限公司
- */
-
 package com.github.xiaohu409.androidutildemo.base;
 
 import android.content.pm.PackageManager;

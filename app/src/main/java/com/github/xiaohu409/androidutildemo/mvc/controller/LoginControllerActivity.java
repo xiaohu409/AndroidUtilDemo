@@ -5,8 +5,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
 import com.github.xiaohu409.androidutil.ToastUtil;
 import com.github.xiaohu409.androidutildemo.R;
 import com.github.xiaohu409.androidutildemo.base.BaseUIActivity;
