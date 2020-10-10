@@ -24,6 +24,10 @@ import com.github.xiaohu409.androidutildemo.mvc.controller.WorkManagerController
 import com.github.xiaohu409.androidutildemo.widget.HtEditText;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -203,7 +207,17 @@ public class MainActivity extends BaseUIActivity {
 
     private void testFileApi() {
         LogUtil.logDebug(TAG, "getFilesDir:" + getFilesDir().getPath());
+        LogUtil.logDebug(TAG, "getFilesDir:" + getFilesDir().getAbsolutePath());
         File file = new File(getFilesDir(), "test");
-        LogUtil.logDebug(TAG, "testFile:" + file.getPath());
+        try {
+            OutputStream outputStream = new FileOutputStream(file);
+            outputStream.write("hello world".getBytes());
+            outputStream.flush();
+            outputStream.close();
+            LogUtil.logDebug(TAG, "testFile:" + file.getPath());
+        }  catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
