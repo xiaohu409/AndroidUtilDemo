@@ -2,6 +2,7 @@ package com.github.xiaohu409.androidutildemo;
 
 import android.Manifest;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Build;
@@ -13,6 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.xiaohu409.androidutil.BluetoothUtil;
 import com.github.xiaohu409.androidutil.DateTimeUtil;
+import com.github.xiaohu409.androidutil.FileUtil;
 import com.github.xiaohu409.androidutil.LogUtil;
 import com.github.xiaohu409.androidutil.SharePreUtil;
 import com.github.xiaohu409.androidutil.ToastUtil;
@@ -28,6 +30,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -206,18 +210,33 @@ public class MainActivity extends BaseUIActivity {
 //    }
 
     private void testFileApi() {
-        LogUtil.logDebug(TAG, "getFilesDir:" + getFilesDir().getPath());
-        LogUtil.logDebug(TAG, "getFilesDir:" + getFilesDir().getAbsolutePath());
-        File file = new File(getFilesDir(), "test");
-        try {
-            OutputStream outputStream = new FileOutputStream(file);
-            outputStream.write("hello world".getBytes());
-            outputStream.flush();
-            outputStream.close();
-            LogUtil.logDebug(TAG, "testFile:" + file.getPath());
-        }  catch (IOException e) {
-            e.printStackTrace();
-        }
+//        LogUtil.logDebug(TAG, "getFilesDir:" + getFilesDir().getPath());
+//        LogUtil.logDebug(TAG, "getFilesDir:" + getFilesDir().getAbsolutePath());
+//        File file = new File(getFilesDir(), "test");
+//
+//        try {
+//            FileChannel fileChannel = new FileOutputStream(file).getChannel();
+//            fileChannel.write(ByteBuffer.wrap("hello world ni hao hutao".getBytes()));
+//            fileChannel.close();
+//            LogUtil.logDebug(TAG, "testFile:" + file.getPath());
+//        }  catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        String filename = "myfile";
+//        String fileContents = "Hello world!";
+//        try {
+//            FileOutputStream fos = openFileOutput(filename, Context.MODE_PRIVATE);
+//            fos.write(fileContents.getBytes());
+//            fos.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        FileUtil fileUtil = new FileUtil(this);
+        fileUtil.writeFile("test", "hello world");
+
+        String result = fileUtil.readFile("test");
+        LogUtil.logDebug(TAG, result);
 
     }
 }
