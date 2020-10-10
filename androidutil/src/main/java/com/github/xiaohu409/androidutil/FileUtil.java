@@ -3,7 +3,6 @@ package com.github.xiaohu409.androidutil;
 import android.content.Context;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,6 +25,7 @@ public class FileUtil {
         boolean result;
         try {
             //File file = new File(context.getFilesDir(), fileName);
+            //openFileOutput方法操作的是filesDir目录 context.getFilesDir();
             fileOutputStream = context.openFileOutput(fileName, Context.MODE_APPEND);
             fileChannel = fileOutputStream.getChannel();
             fileChannel.write(ByteBuffer.wrap(value.getBytes()));
@@ -53,6 +53,7 @@ public class FileUtil {
         try {
 //            ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
             //File file = new File(context.getFilesDir(), fileName);
+            //openFileInput方法操作的是filesDir目录 context.getFilesDir();
             fileInputStream = context.openFileInput(fileName);
 //            fileChannel = fileInputStream.getChannel();
 //            fileChannel.read(byteBuffer);
