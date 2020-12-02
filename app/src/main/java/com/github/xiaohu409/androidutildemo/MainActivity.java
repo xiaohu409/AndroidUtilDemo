@@ -28,7 +28,7 @@ import com.github.xiaohu409.androidutildemo.bean.TestBean;
 import com.github.xiaohu409.androidutildemo.databinding.ActivityMainBinding;
 import com.github.xiaohu409.androidutildemo.mvc.controller.LoginControllerActivity;
 import com.github.xiaohu409.androidutildemo.mvc.controller.WorkManagerControllerActivity;
-import com.github.xiaohu409.androidutildemo.util.Aestuuu;
+
 import com.github.xiaohu409.androidutildemo.widget.HtEditText;
 
 import java.util.HashMap;
@@ -36,8 +36,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static com.github.xiaohu409.androidutildemo.util.Aestuuu.decrypt;
-import static com.github.xiaohu409.androidutildemo.util.Aestuuu.encrypt;
 
 public class MainActivity extends AppCompatActivity {
 
