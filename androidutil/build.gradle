@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -19,13 +20,22 @@ android {
         }
     }
 
+
+
+    publish {
+        userOrg = 'hutao409'  //bintray注册的用户名
+        groupId = 'com.github.xiaohu409'  //compile引用时的第1部分groupId
+        artifactId = 'androidutil'       //compile引用时的第2部分项目名
+        publishVersion = '1.0'     //compile引用时的第3部分版本号
+        desc = '实现带数字角标的图标'
+        website = 'https://github.com/xiaohu409/AndroidUtilDemo'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "androidx.appcompat:appcompat:${rootProject.ext.androidXVersion}"
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
