@@ -4,15 +4,22 @@ import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.xiaohu409.androidutil.BluetoothUtil;
 import com.github.xiaohu409.androidutil.DateTimeUtil;
-import com.github.xiaohu409.androidutil.FileUtil;
 import com.github.xiaohu409.androidutil.LogUtil;
 import com.github.xiaohu409.androidutil.SharePreUtil;
 import com.github.xiaohu409.androidutil.ToastUtil;
@@ -21,56 +28,59 @@ import com.github.xiaohu409.androidutildemo.bean.TestBean;
 import com.github.xiaohu409.androidutildemo.databinding.ActivityMainBinding;
 import com.github.xiaohu409.androidutildemo.mvc.controller.LoginControllerActivity;
 import com.github.xiaohu409.androidutildemo.mvc.controller.WorkManagerControllerActivity;
+
 import com.github.xiaohu409.androidutildemo.widget.HtEditText;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 
-public class MainActivity extends BaseUIActivity {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private ActivityMainBinding activityMainBinding;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        initUI();
+        A a = new A();
+        getLifecycle().addObserver(a);
+    }
+
 //    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        initUI();
-//        A a = new A();
-//        getLifecycle().addObserver(a);
+//    public int getLayoutId() {
+//        return R.layout.activity_main;
+//    }
+//
+//    @Override
+//    public View getView() {
+//        activityMainBinding = ActivityMainBinding.inflate(LayoutInflater.from(this));
+//        return activityMainBinding.getRoot();
 //    }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_main;
-    }
 
-    @Override
-    public View getView() {
-        activityMainBinding = ActivityMainBinding.inflate(LayoutInflater.from(this));
-        return activityMainBinding.getRoot();
-    }
-
-    @Override
     public void initUI() {
-        Button utilBtn = findViewById(R.id.test_util_btn_id);
-        utilBtn.setOnClickListener(this);
-        Button bluetoothBtn = findViewById(R.id.bluetooth_btn_id);
-        bluetoothBtn.setOnClickListener(this);
-        Button loginBtn = findViewById(R.id.login_btn_id);
-        loginBtn.setOnClickListener(this);
-        Button testFastJsonBtn = findViewById(R.id.test_fast_btn_id);
-        testFastJsonBtn.setOnClickListener(this);
-
-        Button workManagerBtn = findViewById(R.id.work_btn_id);
-        workManagerBtn.setOnClickListener(this);
-
-        Button fileBtn = findViewById(R.id.file_btn_id);
-        fileBtn.setOnClickListener(this);
-        if (BuildConfig.DEBUG) {
-            System.out.println(BuildConfig.IP);
-        }
+////        Button utilBtn = findViewById(R.id.test_util_btn_id);
+//        activityMainBinding.testUtilBtnId.setOnClickListener(this);
+//        Button bluetoothBtn = findViewById(R.id.bluetooth_btn_id);
+//        bluetoothBtn.setOnClickListener(this);
+////        Button loginBtn = findViewById(R.id.login_btn_id);
+//        activityMainBinding.loginBtnId.setOnClickListener(this);
+////        Button testFastJsonBtn = findViewById(R.id.test_fast_btn_id);
+//        activityMainBinding.testFastBtnId.setOnClickListener(this);
+//
+////        Button workManagerBtn = findViewById(R.id.work_btn_id);
+//        activityMainBinding.workBtnId.setOnClickListener(this);
+//
+////        Button fileBtn = findViewById(R.id.file_btn_id);
+//        activityMainBinding.fileBtnId.setOnClickListener(this);
+//        if (BuildConfig.DEBUG) {
+//            System.out.println(BuildConfig.IP);
+//        }
 //        WebView webView = findViewById(R.id.web_view_id);
 //        webView.setWebViewClient(new WebViewClient() {
 //
@@ -104,65 +114,67 @@ public class MainActivity extends BaseUIActivity {
         editText.setEditTextCallback((String s) -> ToastUtil.showShort(s));
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.test_util_btn_id:
-                //        ToastUtil.showLong("显示");
-                SharePreUtil.getInstance().put("name", "胡涛");
-                SharePreUtil.getInstance().put("age", 22);
-                SharePreUtil.getInstance().put("height", 1.75);
-                SharePreUtil.getInstance().put("man", true);
-                ToastUtil.showLong(SharePreUtil.getInstance().getString("name"));
-                LogUtil.logDebug(TAG, DateTimeUtil.getDateTime("yyyy-MM-dd HH:mm:ss"));
-                break;
-            case R.id.bluetooth_btn_id:
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-                    requestPermissions(new String[] {
-                            Manifest.permission.ACCESS_COARSE_LOCATION,
-                            Manifest.permission.BLUETOOTH,
-                            Manifest.permission.BLUETOOTH_ADMIN
-                    }, REQUEST_PERMISSION_BLUETOOTH);
-                }
-                else {
-                    scanBluetooth();
-                }
-                break;
-            case R.id.login_btn_id:
-                //测试登录
-                startActivity(new Intent(this, LoginControllerActivity.class));
-                break;
-            case R.id.test_fast_btn_id:
-                //Parcelable
-                TestBean bean = new TestBean();
-                bean.setId(1L);
-                bean.setName("胡涛");
-                bean.setAge(30);
-                String json = JSON.toJSONString(bean, SerializerFeature.WriteMapNullValue);
-                LogUtil.logDebug(TAG, json);
-                break;
-            case R.id.work_btn_id:
-                //测试worker
-                startActivity(new Intent(this, WorkManagerControllerActivity.class));
-                break;
-            case R.id.file_btn_id:
-                //文件读写
-                testFileApi();
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.test_util_btn_id:
+//                //        ToastUtil.showLong("显示");
+//                SharePreUtil.getInstance().put("name", "胡涛");
+//                SharePreUtil.getInstance().put("age", 22);
+//                SharePreUtil.getInstance().put("height", 1.75);
+//                SharePreUtil.getInstance().put("man", true);
+//                ToastUtil.showLong(SharePreUtil.getInstance().getString("name"));
+//                LogUtil.logDebug(TAG, DateTimeUtil.getDateTime("yyyy-MM-dd HH:mm:ss"));
+//                break;
+//            case R.id.bluetooth_btn_id:
+//                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+//                    requestPermissions(new String[] {
+//                            Manifest.permission.ACCESS_COARSE_LOCATION,
+//                            Manifest.permission.BLUETOOTH,
+//                            Manifest.permission.BLUETOOTH_ADMIN
+//                    }, REQUEST_PERMISSION_BLUETOOTH);
+//                }
+//                else {
+//                    scanBluetooth();
+//                }
+//                break;
+//            case R.id.login_btn_id:
+//                //测试登录
+//
+//                startActivity(new Intent(this, LoginControllerActivity.class));
+//                break;
+//            case R.id.test_fast_btn_id:
+//                //Parcelable
+//                TestBean bean = new TestBean();
+//                bean.setId(1L);
+//                bean.setName("胡涛");
+//                bean.setAge(30);
+//                String json = JSON.toJSONString(bean, SerializerFeature.WriteMapNullValue);
+//                LogUtil.logDebug(TAG, json);
+//                break;
+//            case R.id.work_btn_id:
+//                //测试worker
+//                startActivity(new Intent(this, WorkManagerControllerActivity.class));
+//                break;
+//            case R.id.file_btn_id:
+//                //文件读写
+//
+//                break;
+//        }
+//    }
+//
+//    @Override
+//    public void grantedPermission(int type) {
+//        super.grantedPermission(type);
+//        scanBluetooth();
+//    }
+//
+//    @Override
+//    public void deniedPermission(int type) {
+//        super.deniedPermission(type);
+//        ToastUtil.showShort("你拒绝了此权限");
+//    }
 
-    @Override
-    public void grantedPermission(int type) {
-        super.grantedPermission(type);
-        scanBluetooth();
-    }
-
-    @Override
-    public void deniedPermission(int type) {
-        super.deniedPermission(type);
-        ToastUtil.showShort("你拒绝了此权限");
-    }
 
 
     /**
@@ -199,13 +211,4 @@ public class MainActivity extends BaseUIActivity {
 //    public void bindData() {
 //        super.bindData();
 //    }
-
-    private void testFileApi() {
-        FileUtil fileUtil = new FileUtil(this);
-        fileUtil.writeFile("test", "hello world");
-
-        String result = fileUtil.readFile("test");
-        LogUtil.logDebug(TAG, result);
-
-    }
 }

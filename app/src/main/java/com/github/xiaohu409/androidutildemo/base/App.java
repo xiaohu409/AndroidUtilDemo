@@ -28,7 +28,6 @@ public class App extends Application {
         ToastUtil.initToastUtil(this);
         SharePreUtil.initSharePreUtil(this, "test.xml");
         LogUtil.setDebug(BuildConfig.DEBUG);
-        initPush();
     }
 
     @Override
@@ -44,8 +43,4 @@ public class App extends Application {
         return instance;
     }
 
-    private void initPush() {
-//        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY,
-//                "");
-    }
 }
