@@ -131,10 +131,10 @@ public class App extends Application {
     }
 }
 ```
-# MVC架构
+## MVC架构
     1.流程 view -> controller -> model -> view
     
-# MVP架构
+## MVP架构
     1.流程 view -> presenter -> model -> presenter -> view
 
 ## Licens
