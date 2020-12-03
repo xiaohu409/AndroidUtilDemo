@@ -1,5 +1,5 @@
 [ ![Download](https://api.bintray.com/packages/hutao409/maven/androidutil/images/download.svg?version=1.0.2) ](https://bintray.com/hutao409/maven/androidutil/1.0.2/link)
-
+[![](https://jitpack.io/v/xiaohu409/AndroidUtilDemo.svg)](https://jitpack.io/#xiaohu409/AndroidUtilDemo)
 # 工具集
 ## 已添加的工具
 + ToastUtil
@@ -17,9 +17,16 @@
 ## 使用教程
 ### 1.引用类库，在module的build.gradle添加依赖
 ```groovy
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    ***
+    ...
     implementation project(path: ':androidutil')
     //或者
     implementation 'com.github.xiaohu409.androidutil:androidutil:1.0.2'
