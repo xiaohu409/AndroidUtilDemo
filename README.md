@@ -16,7 +16,7 @@
 + WorkManager
 
 ## 使用教程
-### 1.引用类库，在module的build.gradle添加依赖
+### 1.引用类库 在项目的根目录build.gradle添加仓储地址，然后在module的build.gradle添加依赖
 ```groovy
 allprojects {
     repositories {
