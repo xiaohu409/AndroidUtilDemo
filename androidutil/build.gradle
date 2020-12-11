@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -9,7 +8,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -18,17 +17,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-
-
-
-    publish {
-        userOrg = 'hutao409'  //bintray注册的用户名
-        groupId = 'com.github.xiaohu409'  //compile引用时的第1部分groupId
-        artifactId = 'androidutil'       //compile引用时的第2部分项目名
-        publishVersion = '1.0'     //compile引用时的第3部分版本号
-        desc = '实现带数字角标的图标'
-        website = 'https://github.com/xiaohu409/AndroidUtilDemo'
     }
 }
 
