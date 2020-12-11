@@ -1,4 +1,7 @@
-# 工具集
+# AndroidUtil
+[ ![Download](https://api.bintray.com/packages/hutao409/maven/androidutil/images/download.svg?version=1.0.2) ](https://bintray.com/hutao409/maven/androidutil/1.0.2/link)
+[![](https://jitpack.io/v/xiaohu409/AndroidUtilDemo.svg)](https://jitpack.io/#xiaohu409/AndroidUtilDemo)
+
 ## 已添加的工具
 + ToastUtil
 + SharePreferenceUtil
@@ -13,17 +16,24 @@
 + WorkManager
 
 ## 使用教程
-### 1.引用类库，在module的build.gradle添加依赖
+### 1.引用类库 在项目的根目录build.gradle添加仓储地址，然后在module的build.gradle添加依赖
 ```groovy
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    ...
     implementation project(path: ':androidutil')
+    //或者
+    implementation 'com.github.xiaohu409.androidutil:androidutil:1.0.2'
 }
+
+
 ```
 ### 2.初始化
 ```java
@@ -121,9 +131,23 @@ public class App extends Application {
     }
 }
 ```
-# MVC架构
+## MVC架构
     1.流程 view -> controller -> model -> view
     
-# MVP架构
+## MVP架构
     1.流程 view -> presenter -> model -> presenter -> view
 
+## Licens
+    Copyright 2018 xiaohu409
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
