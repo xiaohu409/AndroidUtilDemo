@@ -1,5 +1,6 @@
 package com.github.xiaohu409.androidutildemo;
 
+import com.liulishuo.okdownload.DownloadListener;
 import com.liulishuo.okdownload.DownloadTask;
 
 public class TaskBean {
@@ -9,7 +10,8 @@ public class TaskBean {
     //0.未下载 1.开始下载 2.暂停下载 3.下载完成 4.报错 5 取消
     private int status;
     private DownloadTask downloadTask;
-    private HtDownloadListener htDownloadListener;
+
+    private DownloadListener downloadListener;
 
     public String getFileName() {
         return fileName;
@@ -43,11 +45,11 @@ public class TaskBean {
         this.downloadTask = downloadTask;
     }
 
-    public HtDownloadListener getHtDownloadListener() {
-        return htDownloadListener;
+    public DownloadListener getDownloadListener() {
+        return downloadListener;
     }
 
-    public void setHtDownloadListener(HtDownloadListener htDownloadListener) {
-        this.htDownloadListener = htDownloadListener;
+    public void setDownloadListener(DownloadListener downloadListener) {
+        this.downloadListener = downloadListener;
     }
 }

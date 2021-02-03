@@ -1,15 +1,25 @@
 package com.github.xiaohu409.androidutildemo;
 
 import android.content.Context;
-import android.net.Uri;
 import android.text.TextUtils;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 
+import com.liulishuo.okdownload.UnifiedListenerManager;
+
 import java.io.File;
 
 public class Utils {
+
+    private static UnifiedListenerManager manager;
+
+    public static UnifiedListenerManager getManager() {
+        if (manager == null) {
+            manager = new UnifiedListenerManager();
+        }
+        return manager;
+    }
 
     public static File getParentFile(@NonNull Context context) {
         final File externalSaveDir = context.getExternalCacheDir();

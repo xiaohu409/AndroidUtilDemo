@@ -12,19 +12,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.xiaohu409.androidutil.LogUtil;
+import com.github.xiaohu409.androidutil.ToastUtil;
 import com.liulishuo.okdownload.DownloadTask;
-import com.liulishuo.okdownload.SpeedCalculator;
-import com.liulishuo.okdownload.StatusUtil;
-import com.liulishuo.okdownload.core.breakpoint.BlockInfo;
 import com.liulishuo.okdownload.core.breakpoint.BreakpointInfo;
 import com.liulishuo.okdownload.core.cause.EndCause;
-import com.liulishuo.okdownload.core.listener.DownloadListener4WithSpeed;
-import com.liulishuo.okdownload.core.listener.assist.Listener4SpeedAssistExtend;
+import com.liulishuo.okdownload.core.cause.ResumeFailedCause;
+import com.liulishuo.okdownload.core.listener.DownloadListener1;
+import com.liulishuo.okdownload.core.listener.assist.Listener1Assist;
 
 import java.util.List;
-import java.util.Map;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder> {
+
+    private static final String TAG = "RecyclerAdapter";
 
     public static class Holder extends RecyclerView.ViewHolder {
 
@@ -63,12 +64,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         TaskBean taskBean = getItem(position);
         DownloadTask downloadTask = taskBean.getDownloadTask();
+        MyDownloadListener myDownloadListener = new MyDownloadListener(taskBean, holder);
+        taskBean.setDownloadListener(myDownloadListener);
+        Utils.getManager().attachListener(downloadTask, myDownloadListener);
         holder.fileNameView.setText(downloadTask.getFilename());
-        taskBean.getHtDownloadListener().setProgressBar(holder.progressBar);
-        taskBean.getHtDownloadListener().setEndCallback(new MyHtDownloadListener(taskBean, holder));
-        holder.downloadBtn.setOnClickListener(new DownloadClick(taskBean, holder));
-        BreakpointInfo info = downloadTask.getInfo();
-        Utils.calcProgressToView(holder.progressBar, info.getTotalOffset(), info.getTotalLength());
+
         if (taskBean.getStatus() == 0) {
             holder.statusView.setText("未下载");
             holder.downloadBtn.setText("开始");
@@ -78,17 +78,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
             holder.downloadBtn.setText("暂停");
         }
         else if (taskBean.getStatus() == 2) {
+            BreakpointInfo info = downloadTask.getInfo();
+            Utils.calcProgressToView(holder.progressBar, info.getTotalOffset(), info.getTotalLength());
             holder.statusView.setText("暂停下载");
             holder.downloadBtn.setText("开始");
         }
         else if (taskBean.getStatus() == 3) {
+            BreakpointInfo info = downloadTask.getInfo();
+            Utils.calcProgressToView(holder.progressBar, info.getTotalOffset(), info.getTotalLength());
             holder.statusView.setText("下载完成");
             holder.downloadBtn.setText("打开");
         }
         else if (taskBean.getStatus() == 4) {
+            BreakpointInfo info = downloadTask.getInfo();
+            Utils.calcProgressToView(holder.progressBar, info.getTotalOffset(), info.getTotalLength());
             holder.statusView.setText("报错");
             holder.downloadBtn.setText("重新开始");
         }
+
+        holder.downloadBtn.setOnClickListener(new DownloadClick(taskBean, holder));
     }
 
     @Override
@@ -98,35 +106,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
 
     public TaskBean getItem(int position) {
         return beanList.get(position);
-    }
-
-    private class MyHtDownloadListener implements HtDownloadListener.EndCallback {
-
-        private TaskBean taskBean;
-        private Holder holder;
-
-        public MyHtDownloadListener(TaskBean taskBean, Holder holder) {
-            this.taskBean = taskBean;
-            this.holder = holder;
-        }
-
-        @Override
-        public void onEnd(@NonNull DownloadTask task, @NonNull EndCause cause, @Nullable Exception realCause) {
-            if (cause == EndCause.COMPLETED) {
-                taskBean.setStatus(3);
-                holder.statusView.setText("完成");
-                holder.downloadBtn.setText("打开");
-            } else {
-//                    itemInfo.status = 2; //修改状态
-//                    if (cause == EndCause.CANCELED) {
-//                        Toast.makeText(context, "任务取消", Toast.LENGTH_SHORT).show();
-//                    } else if (cause == EndCause.ERROR) {
-//                        Log.i("bqt", "【任务出错】");
-//                    } else if (cause == EndCause.FILE_BUSY || cause == EndCause.SAME_TASK_BUSY || cause == EndCause.PRE_ALLOCATE_FAILED) {
-//                        Log.i("bqt", "【taskEnd】" + cause.name());
-//                    }
-            }
-        }
     }
 
     private class DownloadClick implements View.OnClickListener {
@@ -144,7 +123,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
             if (taskBean.getStatus() == 0) {
                 //开始下载
                 if (taskBean.getDownloadTask() != null) {
-                    taskBean.getDownloadTask().enqueue(taskBean.getHtDownloadListener());
+                    Utils.getManager().enqueueTaskWithUnifiedListener(taskBean.getDownloadTask(), taskBean.getDownloadListener());
                 }
                 taskBean.setStatus(1);
                 holder.statusView.setText("下载中");
@@ -160,7 +139,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
             } else if (taskBean.getStatus() == 2) {
                 //继续下载
                 if (taskBean.getDownloadTask() != null) {
-                    taskBean.getDownloadTask().enqueue(taskBean.getHtDownloadListener());
+                    Utils.getManager().enqueueTaskWithUnifiedListener(taskBean.getDownloadTask(), taskBean.getDownloadListener());
                 }
                 taskBean.setStatus(1);
                 holder.statusView.setText("下载中");
@@ -171,4 +150,60 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
             }
         }
     }
+
+    private class MyDownloadListener extends DownloadListener1 {
+
+        private TaskBean taskBean;
+        private Holder holder;
+
+        public MyDownloadListener(TaskBean taskBean, Holder holder) {
+            this.taskBean = taskBean;
+            this.holder = holder;
+        }
+
+        @Override
+        public void taskStart(@NonNull DownloadTask task, @NonNull Listener1Assist.Listener1Model model) {
+
+        }
+
+        @Override
+        public void retry(@NonNull DownloadTask task, @NonNull ResumeFailedCause cause) {
+
+        }
+
+        @Override
+        public void connected(@NonNull DownloadTask task, int blockCount, long currentOffset, long totalLength) {
+            LogUtil.logDebug(TAG, "totalLength" + totalLength);
+            holder.progressBar.setMax((int) totalLength);
+
+        }
+
+        @Override
+        public void progress(@NonNull DownloadTask task, long currentOffset, long totalLength) {
+            LogUtil.logDebug(TAG, "currentOffset" + currentOffset);
+            LogUtil.logDebug(TAG, "totalLength" + totalLength);
+            Utils.calcProgressToView(holder.progressBar, currentOffset, totalLength);
+        }
+
+        @Override
+        public void taskEnd(@NonNull DownloadTask task, @NonNull EndCause cause, @Nullable Exception realCause, @NonNull Listener1Assist.Listener1Model model) {
+            ToastUtil.showShort("任务结束了：" + cause.name());
+            if (cause == EndCause.COMPLETED) {
+                taskBean.setStatus(3);
+                holder.statusView.setText("完成");
+                holder.downloadBtn.setText("打开");
+            }
+            else {
+//                    itemInfo.status = 2; //修改状态
+//                    if (cause == EndCause.CANCELED) {
+//                        Toast.makeText(context, "任务取消", Toast.LENGTH_SHORT).show();
+//                    } else if (cause == EndCause.ERROR) {
+//                        Log.i("bqt", "【任务出错】");
+//                    } else if (cause == EndCause.FILE_BUSY || cause == EndCause.SAME_TASK_BUSY || cause == EndCause.PRE_ALLOCATE_FAILED) {
+//                        Log.i("bqt", "【taskEnd】" + cause.name());
+//                    }
+            }
+        }
+    }
+
 }
