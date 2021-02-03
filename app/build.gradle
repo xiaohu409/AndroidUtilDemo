@@ -34,6 +34,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "androidx.appcompat:appcompat:${rootProject.ext.androidXVersion}"
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test:runner:1.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -49,7 +50,20 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
     implementation 'com.alibaba:fastjson:1.2.62'
-    def work_version = "2.4.0"
+    def work_version = "2.5.0"
     // (Java only)
     implementation "androidx.work:work-runtime:$work_version"
+
+    // core
+    implementation 'com.liulishuo.okdownload:okdownload:1.0.7'
+    // provide sqlite to store breakpoints
+    implementation 'com.liulishuo.okdownload:sqlite:1.0.7'
+    // provide okhttp to connect to backend
+    // and then please import okhttp dependencies by yourself
+    implementation 'com.liulishuo.okdownload:okhttp:1.0.7'
+    // provide interface to match filedownloader
+    implementation 'com.liulishuo.okdownload:filedownloader:1.0.7'
+
+//// provide interface for kotlin extension
+//    com.liulishuo.okdownload:ktx{latest_version}
 }

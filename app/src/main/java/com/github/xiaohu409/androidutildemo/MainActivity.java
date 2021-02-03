@@ -3,15 +3,20 @@ package com.github.xiaohu409.androidutildemo;
 import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +45,8 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private ActivityMainBinding activityMainBinding;
+//    private ActivityMainBinding activityMainBinding;
+    private FrameLayout flVideoContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +87,48 @@ public class MainActivity extends AppCompatActivity {
 //        if (BuildConfig.DEBUG) {
 //            System.out.println(BuildConfig.IP);
 //        }
-//        WebView webView = findViewById(R.id.web_view_id);
+        flVideoContainer = findViewById(R.id.flVideoContainer);
+        WebView webView = findViewById(R.id.web_view_id);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        webView.getSettings().setUseWideViewPort(true);
+        webView.getSettings().setLoadWithOverviewMode(true);
+        webView.getSettings().setAllowFileAccess(true);
+        webView.getSettings().setSupportZoom(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webView.getSettings().setMixedContentMode(webView.getSettings().MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+        webView.setWebViewClient(new WebViewClient());
+        webView.setWebChromeClient(new WebChromeClient() {
+            WebChromeClient.CustomViewCallback mCallback;
+            @Override
+            public void onShowCustomView(View view, CustomViewCallback callback) {
+
+                fullScreen();
+
+                webView.setVisibility(View.GONE);
+                flVideoContainer.setVisibility(View.VISIBLE);
+                flVideoContainer.addView(view);
+                mCallback = callback;
+                super.onShowCustomView(view, callback);
+            }
+
+            @Override
+            public void onHideCustomView() {
+
+                fullScreen();
+
+                webView.setVisibility(View.VISIBLE);
+                flVideoContainer.setVisibility(View.GONE);
+                flVideoContainer.removeAllViews();
+                super.onHideCustomView();
+
+            }
+        });
+
+
+
+
 //        webView.setWebViewClient(new WebViewClient() {
 //
 //            @Nullable
@@ -101,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 //                return super.shouldInterceptRequest(view, request);
 //            }
 //        });
-//        webView.loadUrl("https://www.baidu.com");
+        webView.loadUrl("https://www.baidu.com");
 //        String s = "hutao";
 //        String pass = "EBD0B5D2-F4E7-453A-9E16-01AE8F6E2977";
 //        String encoded = encrypt(s, pass);
@@ -112,6 +159,16 @@ public class MainActivity extends AppCompatActivity {
 
         HtEditText editText = findViewById(R.id.input_et_id);
         editText.setEditTextCallback((String s) -> ToastUtil.showShort(s));
+
+        Button intentBtn = findViewById(R.id.intent_btn_id);
+        intentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction("hutao");
+                startActivity(intent);
+            }
+        });
     }
 
 //    @Override
@@ -211,4 +268,29 @@ public class MainActivity extends AppCompatActivity {
 //    public void bindData() {
 //        super.bindData();
 //    }
+
+    private void fullScreen() {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//                Log.i("ToVmp","横屏");
+        } else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//                Log.i("ToVmp","竖屏");
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration config) {
+        super.onConfigurationChanged(config);
+        switch (config.orientation) {
+            case Configuration.ORIENTATION_LANDSCAPE:
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                break;
+            case Configuration.ORIENTATION_PORTRAIT:
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+                break;
+        }
+    }
 }
