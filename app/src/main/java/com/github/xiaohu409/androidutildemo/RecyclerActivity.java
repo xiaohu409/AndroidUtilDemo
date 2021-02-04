@@ -41,9 +41,4 @@ public class RecyclerActivity extends BaseUIActivity {
         }
         recyclerAdapter.notifyDataSetChanged();
     }
-
-//    public void addTask(TaskBean taskBean) {
-//        beanList.add(taskBean);
-//        recyclerAdapter.notifyDataSetChanged();
-//    }
 }
