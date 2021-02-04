@@ -6,6 +6,7 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 
+import com.liulishuo.okdownload.DownloadTask;
 import com.liulishuo.okdownload.UnifiedListenerManager;
 
 import java.io.File;
@@ -23,6 +24,7 @@ public class Utils {
 
     public static File getParentFile(@NonNull Context context) {
         final File externalSaveDir = context.getExternalCacheDir();
+//        final File externalSaveDir = Environment.getExternalStorageDirectory();
         if (externalSaveDir == null) {
             return context.getCacheDir();
         } else {
@@ -36,7 +38,7 @@ public class Utils {
     }
 
     public static String getFileName(String url) {
-        if (!TextUtils.isEmpty(url)) {
+        if (TextUtils.isEmpty(url)) {
             return "";
         }
         String[] result = url.split("/");
@@ -46,4 +48,18 @@ public class Utils {
         String fileName = result[result.length - 1];
         return fileName;
     }
+
+    public static DownloadTask createDownloadTask(Context context, TaskBean taskBean) {
+        File parentFile = Utils.getParentFile(context);
+        DownloadTask task = new DownloadTask.Builder(taskBean.getFileNameUrl(), parentFile)
+                .setFilename(taskBean.getFileName())
+                // the minimal interval millisecond for callback progress
+                .setMinIntervalMillisCallbackProcess(1)
+                // do re-download even if the task has already been completed in the past.
+                .setPassIfAlreadyCompleted(false)
+                .setAutoCallbackToUIThread(true)
+                .build();
+        return task;
+    }
+
 }

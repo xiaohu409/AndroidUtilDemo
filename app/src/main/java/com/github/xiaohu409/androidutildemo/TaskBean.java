@@ -7,7 +7,7 @@ public class TaskBean {
 
     private String fileName;
     private String fileNameUrl;
-    //0.未下载 1.开始下载 2.暂停下载 3.下载完成 4.报错 5 取消
+    //0.未下载 1.开始下载 2.暂停下载 3.下载完成 4.报错 5.取消 6.其他异常
     private int status;
     private DownloadTask downloadTask;
 
