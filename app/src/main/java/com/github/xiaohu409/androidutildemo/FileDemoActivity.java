@@ -17,7 +17,6 @@ import com.liulishuo.okdownload.DownloadTask;
 import com.liulishuo.okdownload.StatusUtil;
 import com.liulishuo.okdownload.core.cause.EndCause;
 import com.liulishuo.okdownload.core.cause.ResumeFailedCause;
-import com.liulishuo.okdownload.core.dispatcher.DownloadDispatcher;
 import com.liulishuo.okdownload.core.listener.DownloadListener1;
 import com.liulishuo.okdownload.core.listener.DownloadListener2;
 import com.liulishuo.okdownload.core.listener.assist.Listener1Assist;
@@ -96,9 +95,9 @@ public class FileDemoActivity extends BaseUIActivity {
 //        DownloadDispatcher.setMaxParallelRunningCount(10);
         List<String> urlList =  Arrays.asList(
                 "http://dldir1.qq.com/weixin/android/weixin6516android1120.apk",
-                "http://10.0.0.129:8080/downloadTest?fileName=app-debug.apk",
-                "http://10.0.0.129:8080/downloadTest?fileName=demo.zip",
-                "http://10.0.0.129:8080/downloadTest?fileName=image1882813695064063741.png",
+                "http://192.168.31.150:8080/downloadTest?fileName=app-debug.apk",
+                "http://192.168.31.150:8080/downloadTest?fileName=demo.zip",
+                "http://192.168.31.150:8080/downloadTest?fileName=image1882813695064063741.png",
                 "https://cdn.llscdn.com/yy/files/xs8qmxn8-lls-LLS-5.8-800-20171207-111607.apk"
         );
         for (String url : urlList) {

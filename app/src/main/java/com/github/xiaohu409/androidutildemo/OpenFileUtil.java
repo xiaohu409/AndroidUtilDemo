@@ -7,14 +7,13 @@ import android.os.Build;
 
 import androidx.core.content.FileProvider;
 
-import com.github.xiaohu409.androidutil.ToastUtil;
-
 import java.io.File;
 import java.util.Locale;
 
 public class OpenFileUtil {
 
     public static void openFile(Context context, String filePath) {
+        filePath = Utils.getParentFile(context)  + "/" + filePath;
         context.startActivity(getIntent(context, filePath));
     }
 

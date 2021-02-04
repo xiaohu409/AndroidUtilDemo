@@ -1,28 +1,32 @@
 package com.github.xiaohu409.androidutildemo;
 
-import android.os.Bundle;
+import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.github.xiaohu409.androidutildemo.base.BaseUIActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerActivity extends  AppCompatActivity {
+public class RecyclerActivity extends BaseUIActivity {
 
     private RecyclerAdapter recyclerAdapter;
     public List<TaskBean> beanList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycler);
-        initUI();
-        bindData();
+    public int getLayoutId() {
+        return R.layout.activity_recycler;
     }
 
-    private void initUI() {
+    @Override
+    public View getView() {
+        return null;
+    }
+
+    @Override
+    public void initUI() {
         RecyclerView recyclerView = findViewById(R.id.rv_id);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         beanList = new ArrayList<>();
@@ -30,7 +34,8 @@ public class RecyclerActivity extends  AppCompatActivity {
         recyclerView.setAdapter(recyclerAdapter);
     }
 
-    private void bindData() {
+    @Override
+    public void bindData() {
         for (TaskBean bean : FileDemoActivity.beanList) {
             beanList.add(bean);
         }

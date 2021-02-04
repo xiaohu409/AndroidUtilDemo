@@ -1,7 +1,6 @@
 package com.github.xiaohu409.androidutildemo;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.xiaohu409.androidutil.LogUtil;
-import com.github.xiaohu409.androidutil.ToastUtil;
-import com.liulishuo.okdownload.DownloadListener;
 import com.liulishuo.okdownload.DownloadTask;
 import com.liulishuo.okdownload.StatusUtil;
 import com.liulishuo.okdownload.core.breakpoint.BreakpointInfo;
@@ -50,13 +47,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         TaskBean taskBean = getItem(position);
-        DownloadTask downloadTask = taskBean.getDownloadTask();
-        DownloadListener downloadListener = taskBean.getDownloadListener();
-        if (downloadTask != null && downloadListener == null) {
-            MyDownloadListener myDownloadListener = new MyDownloadListener(taskBean, holder);
-            taskBean.setDownloadListener(myDownloadListener);
-            Utils.getManager().attachListener(downloadTask, myDownloadListener);
-        }
+//        DownloadTask downloadTask = taskBean.getDownloadTask();
+//        DownloadListener downloadListener = taskBean.getDownloadListener();
+//        if (downloadTask != null && downloadListener == null) {
+//            MyDownloadListener myDownloadListener = new MyDownloadListener(taskBean, holder);
+//            taskBean.setDownloadListener(myDownloadListener);
+//            Utils.getManager().attachListener(downloadTask, myDownloadListener);
+//        }
         holder.fileNameView.setText(taskBean.getFileName());
         StatusUtil.Status status = StatusUtil.getStatus(taskBean.getFileNameUrl(), Utils.getParentFile(context).getPath(), taskBean.getFileName());
         if (status == StatusUtil.Status.UNKNOWN) {
@@ -97,7 +94,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
             holder.downloadBtn.setText("打开");
         }
         else if (taskBean.getStatus() == 4) {
-            holder.statusView.setText("下载报错");
+            holder.statusView.setText("下载出错");
             holder.downloadBtn.setText("重新开始");
         }
 
@@ -141,15 +138,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
 
         @Override
         public void onClick(View v) {
-            if (taskBean.getDownloadTask() == null) {
-                DownloadTask downloadTask = Utils.createDownloadTask(context, taskBean);
-                taskBean.setDownloadTask(downloadTask);
-            }
-            if (taskBean.getDownloadListener() == null) {
-                MyDownloadListener myDownloadListener = new MyDownloadListener(taskBean, holder);
-                taskBean.setDownloadListener(myDownloadListener);
-            }
+
             if (taskBean.getStatus() == 0) {
+                if (taskBean.getDownloadTask() == null) {
+                    DownloadTask downloadTask = Utils.createDownloadTask(context, taskBean);
+                    taskBean.setDownloadTask(downloadTask);
+                }
+                if (taskBean.getDownloadListener() == null) {
+                    MyDownloadListener myDownloadListener = new MyDownloadListener(taskBean, holder);
+                    taskBean.setDownloadListener(myDownloadListener);
+                }
                 //开始下载
                 Utils.getManager().enqueueTaskWithUnifiedListener(taskBean.getDownloadTask(), taskBean.getDownloadListener());
                 taskBean.setStatus(1);
@@ -162,10 +160,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
                     taskBean.getDownloadTask().cancel();
                 }
                 taskBean.setStatus(2);
-                holder.statusView.setText("暂停中");
+                holder.statusView.setText("暂停下载");
                 holder.downloadBtn.setText("开始");
             }
             else if (taskBean.getStatus() == 2) {
+                if (taskBean.getDownloadTask() == null) {
+                    DownloadTask downloadTask = Utils.createDownloadTask(context, taskBean);
+                    taskBean.setDownloadTask(downloadTask);
+                }
+                if (taskBean.getDownloadListener() == null) {
+                    MyDownloadListener myDownloadListener = new MyDownloadListener(taskBean, holder);
+                    taskBean.setDownloadListener(myDownloadListener);
+                }
                 //继续下载
                 Utils.getManager().enqueueTaskWithUnifiedListener(taskBean.getDownloadTask(), taskBean.getDownloadListener());
                 taskBean.setStatus(1);
@@ -175,24 +181,39 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
             else if (taskBean.getStatus() == 3) {
                 holder.statusView.setText("下载完成");
                 holder.downloadBtn.setText("打开");
-                OpenFileUtil.openFile(context, taskBean.getDownloadTask().getFile().getPath());
+                OpenFileUtil.openFile(context, taskBean.getFileName());
             }
             else if (taskBean.getStatus() == 4) {
                 //出错了 继续下载
+                if (taskBean.getDownloadTask() == null) {
+                    DownloadTask downloadTask = Utils.createDownloadTask(context, taskBean);
+                    taskBean.setDownloadTask(downloadTask);
+                }
+                if (taskBean.getDownloadListener() == null) {
+                    MyDownloadListener myDownloadListener = new MyDownloadListener(taskBean, holder);
+                    taskBean.setDownloadListener(myDownloadListener);
+                }
                 Utils.getManager().enqueueTaskWithUnifiedListener(taskBean.getDownloadTask(), taskBean.getDownloadListener());
                 taskBean.setStatus(1);
                 holder.statusView.setText("下载中");
                 holder.downloadBtn.setText("暂停");
             }
             else if (taskBean.getStatus() == 5) {
+                if (taskBean.getDownloadTask() == null) {
+                    DownloadTask downloadTask = Utils.createDownloadTask(context, taskBean);
+                    taskBean.setDownloadTask(downloadTask);
+                }
+                if (taskBean.getDownloadListener() == null) {
+                    MyDownloadListener myDownloadListener = new MyDownloadListener(taskBean, holder);
+                    taskBean.setDownloadListener(myDownloadListener);
+                }
                 //取消了 继续下载
                 Utils.getManager().enqueueTaskWithUnifiedListener(taskBean.getDownloadTask(), taskBean.getDownloadListener());
                 taskBean.setStatus(1);
                 holder.statusView.setText("下载中");
                 holder.downloadBtn.setText("暂停");
             }
-            BreakpointInfo info = StatusUtil.getCurrentInfo(taskBean.getFileNameUrl(), Utils.getParentFile(context).getPath(), taskBean.getFileName());
-            Utils.calcProgressToView(holder.progressBar, info.getTotalOffset(), info.getTotalLength());
+
         }
     }
 
@@ -237,23 +258,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
                 taskBean.setStatus(3);
                 holder.statusView.setText("下载完成");
                 holder.downloadBtn.setText("打开");
+                holder.progressBar.setProgress(holder.progressBar.getMax());
             }
             else if (cause == EndCause.CANCELED) {
                 taskBean.setStatus(2);
-//                holder.statusView.setText("暂停了");
+                holder.statusView.setText("暂停下载");
+                holder.downloadBtn.setText("开始");
             }
             else if (cause == EndCause.ERROR) {
-                taskBean.setStatus(3);
-                holder.statusView.setText("下载完成");
-                holder.downloadBtn.setText("打开");
-
+                taskBean.setStatus(4);
+                holder.statusView.setText("下载出错");
+                holder.downloadBtn.setText("重新开始");
             }
             else if (cause == EndCause.FILE_BUSY || cause == EndCause.SAME_TASK_BUSY || cause == EndCause.PRE_ALLOCATE_FAILED) {
                 taskBean.setStatus(6);
-//                holder.statusView.setText("其他异常");
+                holder.statusView.setText("其他异常");
+                holder.downloadBtn.setText("重新开始");
             }
-            BreakpointInfo info = StatusUtil.getCurrentInfo(taskBean.getFileNameUrl(), Utils.getParentFile(context).getPath(), taskBean.getFileName());
-            Utils.calcProgressToView(holder.progressBar, info.getTotalOffset(), info.getTotalLength());
         }
     }
 
