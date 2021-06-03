@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--弧的颜色-->
+    <attr name="part1_color" format="color" />
+    <attr name="part2_color" format="color" />
+    <attr name="part3_color" format="color" />
+
+    <!--刻度颜色-->
+    <attr name="scale_font_color" format="color" />
+    <!--刻度大小-->
+    <attr name="scale_font_size" format="dimension" />
+
+    <!--半径-->
+    <attr name="radius" format="dimension" />
+    <!--弧线宽度-->
+    <attr name="arc_width" format="dimension" />
+    <!--补偿 越大 越外-->
+    <attr name="offset" format="dimension" />
+
+    <declare-styleable name="FlowView">
+        <attr name="part1_color" />
+        <attr name="part2_color" />
+        <attr name="part3_color" />
+
+        <attr name="scale_font_color" />
+        <attr name="scale_font_size" />
+        <attr name="radius" />
+        <attr name="arc_width" />
+        <attr name="offset" />
+    </declare-styleable>
+
+</resources>

@@ -20,7 +20,9 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.xiaohu409.androidutil.BluetoothUtil;
@@ -39,10 +41,11 @@ import com.github.xiaohu409.androidutildemo.widget.HtEditText;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
 //    private ActivityMainBinding activityMainBinding;
@@ -70,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void initUI() {
-////        Button utilBtn = findViewById(R.id.test_util_btn_id);
-//        activityMainBinding.testUtilBtnId.setOnClickListener(this);
+        Button utilBtn = findViewById(R.id.test_util_btn_id);
+        utilBtn.setOnClickListener(this);
 //        Button bluetoothBtn = findViewById(R.id.bluetooth_btn_id);
 //        bluetoothBtn.setOnClickListener(this);
 ////        Button loginBtn = findViewById(R.id.login_btn_id);
@@ -87,47 +90,44 @@ public class MainActivity extends AppCompatActivity {
 //        if (BuildConfig.DEBUG) {
 //            System.out.println(BuildConfig.IP);
 //        }
-        flVideoContainer = findViewById(R.id.flVideoContainer);
-        WebView webView = findViewById(R.id.web_view_id);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        webView.getSettings().setUseWideViewPort(true);
-        webView.getSettings().setLoadWithOverviewMode(true);
-        webView.getSettings().setAllowFileAccess(true);
-        webView.getSettings().setSupportZoom(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            webView.getSettings().setMixedContentMode(webView.getSettings().MIXED_CONTENT_ALWAYS_ALLOW);
-        }
-        webView.setWebViewClient(new WebViewClient());
-        webView.setWebChromeClient(new WebChromeClient() {
-            WebChromeClient.CustomViewCallback mCallback;
-            @Override
-            public void onShowCustomView(View view, CustomViewCallback callback) {
-
-                fullScreen();
-
-                webView.setVisibility(View.GONE);
-                flVideoContainer.setVisibility(View.VISIBLE);
-                flVideoContainer.addView(view);
-                mCallback = callback;
-                super.onShowCustomView(view, callback);
-            }
-
-            @Override
-            public void onHideCustomView() {
-
-                fullScreen();
-
-                webView.setVisibility(View.VISIBLE);
-                flVideoContainer.setVisibility(View.GONE);
-                flVideoContainer.removeAllViews();
-                super.onHideCustomView();
-
-            }
-        });
-
-
-
+//        flVideoContainer = findViewById(R.id.flVideoContainer);
+//        WebView webView = findViewById(R.id.web_view_id);
+//        webView.getSettings().setJavaScriptEnabled(true);
+//        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+//        webView.getSettings().setUseWideViewPort(true);
+//        webView.getSettings().setLoadWithOverviewMode(true);
+//        webView.getSettings().setAllowFileAccess(true);
+//        webView.getSettings().setSupportZoom(true);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            webView.getSettings().setMixedContentMode(webView.getSettings().MIXED_CONTENT_ALWAYS_ALLOW);
+//        }
+//        webView.setWebViewClient(new WebViewClient());
+//        webView.setWebChromeClient(new WebChromeClient() {
+//            WebChromeClient.CustomViewCallback mCallback;
+//            @Override
+//            public void onShowCustomView(View view, CustomViewCallback callback) {
+//
+//                fullScreen();
+//
+//                webView.setVisibility(View.GONE);
+//                flVideoContainer.setVisibility(View.VISIBLE);
+//                flVideoContainer.addView(view);
+//                mCallback = callback;
+//                super.onShowCustomView(view, callback);
+//            }
+//
+//            @Override
+//            public void onHideCustomView() {
+//
+//                fullScreen();
+//
+//                webView.setVisibility(View.VISIBLE);
+//                flVideoContainer.setVisibility(View.GONE);
+//                flVideoContainer.removeAllViews();
+//                super.onHideCustomView();
+//
+//            }
+//        });
 
 //        webView.setWebViewClient(new WebViewClient() {
 //
@@ -148,42 +148,50 @@ public class MainActivity extends AppCompatActivity {
 //                return super.shouldInterceptRequest(view, request);
 //            }
 //        });
-        webView.loadUrl("https://www.baidu.com");
-//        String s = "hutao";
-//        String pass = "EBD0B5D2-F4E7-453A-9E16-01AE8F6E2977";
-//        String encoded = encrypt(s, pass);
-//        //System.out.println("加密之前：{}" + s);
-//        System.out.println("加密结果：{}" + encoded);
-//        //decrypt(encoded, pass);
-//        System.out.println("解密结果：{}" + decrypt(encoded, pass));
+//        webView.loadUrl("https://www.baidu.com");
+////        String s = "hutao";
+////        String pass = "EBD0B5D2-F4E7-453A-9E16-01AE8F6E2977";
+////        String encoded = encrypt(s, pass);
+////        //System.out.println("加密之前：{}" + s);
+////        System.out.println("加密结果：{}" + encoded);
+////        //decrypt(encoded, pass);
+////        System.out.println("解密结果：{}" + decrypt(encoded, pass));
+//
+//        HtEditText editText = findViewById(R.id.input_et_id);
+//        editText.setEditTextCallback((String s) -> ToastUtil.showShort(s));
+//
+//        Button intentBtn = findViewById(R.id.intent_btn_id);
+//        intentBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                intent.setAction("hutao");
+//                startActivity(intent);
+//            }
+//        });
 
-        HtEditText editText = findViewById(R.id.input_et_id);
-        editText.setEditTextCallback((String s) -> ToastUtil.showShort(s));
+        LottieAnimationView animationView = new LottieAnimationView(this);
+        animationView.playAnimation();
 
-        Button intentBtn = findViewById(R.id.intent_btn_id);
-        intentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction("hutao");
-                startActivity(intent);
-            }
-        });
+        Button viewBtn = findViewById(R.id.view_btn_id);
+        viewBtn.setOnClickListener(this);
+        Button renderBtn = findViewById(R.id.render_btn_id);
+        renderBtn.setOnClickListener(this);
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.test_util_btn_id:
-//                //        ToastUtil.showLong("显示");
-//                SharePreUtil.getInstance().put("name", "胡涛");
-//                SharePreUtil.getInstance().put("age", 22);
-//                SharePreUtil.getInstance().put("height", 1.75);
-//                SharePreUtil.getInstance().put("man", true);
-//                ToastUtil.showLong(SharePreUtil.getInstance().getString("name"));
-//                LogUtil.logDebug(TAG, DateTimeUtil.getDateTime("yyyy-MM-dd HH:mm:ss"));
-//                break;
-//            case R.id.bluetooth_btn_id:
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.test_util_btn_id:
+                //        ToastUtil.showLong("显示");
+                SharePreUtil.getInstance().put("name", "胡涛");
+                SharePreUtil.getInstance().put("age", new Random().nextInt(10));
+                SharePreUtil.getInstance().put("height", 1.75);
+                SharePreUtil.getInstance().put("man", true);
+                ToastUtil.showLong(SharePreUtil.getInstance().getString("name"));
+                LogUtil.logDebug(TAG, DateTimeUtil.getDateTime("yyyy-MM-dd HH:mm:ss"));
+                break;
+            case R.id.bluetooth_btn_id:
 //                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
 //                    requestPermissions(new String[] {
 //                            Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -194,32 +202,44 @@ public class MainActivity extends AppCompatActivity {
 //                else {
 //                    scanBluetooth();
 //                }
-//                break;
-//            case R.id.login_btn_id:
-//                //测试登录
-//
-//                startActivity(new Intent(this, LoginControllerActivity.class));
-//                break;
-//            case R.id.test_fast_btn_id:
-//                //Parcelable
-//                TestBean bean = new TestBean();
-//                bean.setId(1L);
-//                bean.setName("胡涛");
-//                bean.setAge(30);
-//                String json = JSON.toJSONString(bean, SerializerFeature.WriteMapNullValue);
-//                LogUtil.logDebug(TAG, json);
-//                break;
-//            case R.id.work_btn_id:
-//                //测试worker
-//                startActivity(new Intent(this, WorkManagerControllerActivity.class));
-//                break;
-//            case R.id.file_btn_id:
-//                //文件读写
-//
-//                break;
-//        }
-//    }
-//
+                break;
+            case R.id.login_btn_id:
+                //测试登录
+
+                startActivity(new Intent(this, LoginControllerActivity.class));
+                break;
+            case R.id.test_fast_btn_id:
+                //Parcelable
+                TestBean bean = new TestBean();
+                bean.setId(1L);
+                bean.setName("胡涛");
+                bean.setAge(30);
+                String json = JSON.toJSONString(bean, SerializerFeature.WriteMapNullValue);
+                LogUtil.logDebug(TAG, json);
+                break;
+            case R.id.work_btn_id:
+                //测试worker
+                startActivity(new Intent(this, WorkManagerControllerActivity.class));
+                break;
+            case R.id.file_btn_id:
+                //文件读写
+
+                break;
+            case R.id.view_btn_id:
+                //进场动画
+                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this);
+//                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this)
+                Intent intent = new Intent(this, ViewActivity.class);
+                startActivity(intent, activityOptionsCompat.toBundle());
+
+//                startActivity(new Intent(this, ViewActivity.class));
+                break;
+            case R.id.render_btn_id:
+                startActivity(new Intent(this, RenderScriptActivity.class));
+                break;
+        }
+    }
+
 //    @Override
 //    public void grantedPermission(int type) {
 //        super.grantedPermission(type);
@@ -231,7 +251,6 @@ public class MainActivity extends AppCompatActivity {
 //        super.deniedPermission(type);
 //        ToastUtil.showShort("你拒绝了此权限");
 //    }
-
 
 
     /**

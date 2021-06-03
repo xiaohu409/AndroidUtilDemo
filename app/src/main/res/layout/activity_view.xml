@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewActivity"
+    android:background="@android:color/black">
+    <com.github.xiaohu409.androidutildemo.FlowView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:part1_color="#00efae"
+        app:part2_color="#00c6ff"
+        app:part3_color="#df3979"
+        app:scale_font_color="@android:color/white"
+        app:radius="100dp"
+        app:arc_width="10dp"
+        app:scale_font_size="14sp"
+        app:offset="7dp"
+        android:id="@+id/flow_view_id"/>
+</LinearLayout>

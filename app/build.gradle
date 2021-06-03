@@ -14,6 +14,10 @@ android {
         viewBinding {
             enabled=true
         }
+
+        renderscriptTargetApi 18
+
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         debug {
@@ -35,6 +39,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:${rootProject.ext.androidXVersion}"
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.google.android.material:material:1.2.1'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test:runner:1.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -63,6 +68,7 @@ dependencies {
     implementation 'com.liulishuo.okdownload:okhttp:1.0.7'
     // provide interface to match filedownloader
     implementation 'com.liulishuo.okdownload:filedownloader:1.0.7'
+    implementation 'com.airbnb.android:lottie:1.0.0'
 
 //// provide interface for kotlin extension
 //    com.liulishuo.okdownload:ktx{latest_version}

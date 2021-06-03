@@ -28,7 +28,8 @@ public class RecyclerActivity extends BaseUIActivity {
     @Override
     public void initUI() {
         RecyclerView recyclerView = findViewById(R.id.rv_id);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL | RecyclerView.HORIZONTAL, false));
+        recyclerView.setHorizontalScrollBarEnabled(true);
         beanList = new ArrayList<>();
         recyclerAdapter = new RecyclerAdapter(this, beanList);
         recyclerView.setAdapter(recyclerAdapter);
