@@ -1,11 +1,14 @@
-package com.github.xiaohu409.androidutildemo;
+package com.github.xiaohu409.androidutildemo.filedownload.activity;
 
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.xiaohu409.androidutildemo.R;
 import com.github.xiaohu409.androidutildemo.base.BaseUIActivity;
+import com.github.xiaohu409.androidutildemo.filedownload.RecyclerAdapter;
+import com.github.xiaohu409.androidutildemo.filedownload.TaskBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +31,7 @@ public class RecyclerActivity extends BaseUIActivity {
     @Override
     public void initUI() {
         RecyclerView recyclerView = findViewById(R.id.rv_id);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL | RecyclerView.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         recyclerView.setHorizontalScrollBarEnabled(true);
         beanList = new ArrayList<>();
         recyclerAdapter = new RecyclerAdapter(this, beanList);

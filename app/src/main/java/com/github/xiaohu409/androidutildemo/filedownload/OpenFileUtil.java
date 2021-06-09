@@ -1,4 +1,4 @@
-package com.github.xiaohu409.androidutildemo;
+package com.github.xiaohu409.androidutildemo.filedownload;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Build;
 
 import androidx.core.content.FileProvider;
+
+import com.github.xiaohu409.androidutildemo.filedownload.Utils;
 
 import java.io.File;
 import java.util.Locale;

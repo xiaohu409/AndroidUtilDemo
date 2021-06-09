@@ -1,4 +1,4 @@
-package com.github.xiaohu409.androidutildemo;
+package com.github.xiaohu409.androidutildemo.filedownload;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.xiaohu409.androidutil.LogUtil;
+import com.github.xiaohu409.androidutildemo.R;
 import com.liulishuo.okdownload.DownloadTask;
 import com.liulishuo.okdownload.StatusUtil;
 import com.liulishuo.okdownload.core.breakpoint.BreakpointInfo;

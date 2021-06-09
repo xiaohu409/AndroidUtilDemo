@@ -1,4 +1,4 @@
-package com.github.xiaohu409.androidutildemo;
+package com.github.xiaohu409.androidutildemo.customview;
 
 
 import android.view.animation.Interpolator;

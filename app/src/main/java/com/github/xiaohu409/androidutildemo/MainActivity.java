@@ -1,24 +1,15 @@
 package com.github.xiaohu409.androidutildemo;
 
-import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 
@@ -30,17 +21,13 @@ import com.github.xiaohu409.androidutil.DateTimeUtil;
 import com.github.xiaohu409.androidutil.LogUtil;
 import com.github.xiaohu409.androidutil.SharePreUtil;
 import com.github.xiaohu409.androidutil.ToastUtil;
-import com.github.xiaohu409.androidutildemo.base.BaseUIActivity;
 import com.github.xiaohu409.androidutildemo.bean.TestBean;
-import com.github.xiaohu409.androidutildemo.databinding.ActivityMainBinding;
+import com.github.xiaohu409.androidutildemo.customview.ViewActivity;
 import com.github.xiaohu409.androidutildemo.mvc.controller.LoginControllerActivity;
 import com.github.xiaohu409.androidutildemo.mvc.controller.WorkManagerControllerActivity;
+import com.github.xiaohu409.androidutildemo.renderscript.RenderScriptActivity;
 
-import com.github.xiaohu409.androidutildemo.widget.HtEditText;
-
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 

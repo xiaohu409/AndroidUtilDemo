@@ -1,9 +1,10 @@
-package com.github.xiaohu409.androidutildemo;
+package com.github.xiaohu409.androidutildemo.customview;
+
+import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.view.Window;
+import com.github.xiaohu409.androidutildemo.R;
 
 public class ViewActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.github.xiaohu409.androidutildemo;
+package com.github.xiaohu409.androidutildemo.filedownload;
 
 import android.content.Context;
 import android.text.TextUtils;

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewActivity"
+    tools:context=".customview.ViewActivity"
     android:background="@android:color/black">
-    <com.github.xiaohu409.androidutildemo.FlowView
+    <com.github.xiaohu409.androidutildemo.customview.FlowView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:part1_color="#00efae"

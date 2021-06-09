@@ -1,4 +1,4 @@
-package com.github.xiaohu409.androidutildemo;
+package com.github.xiaohu409.androidutildemo.filedownload.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -11,7 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.github.xiaohu409.androidutildemo.R;
 import com.github.xiaohu409.androidutildemo.base.BaseUIActivity;
+import com.github.xiaohu409.androidutildemo.filedownload.TaskBean;
+import com.github.xiaohu409.androidutildemo.filedownload.Utils;
 import com.liulishuo.okdownload.DownloadListener;
 import com.liulishuo.okdownload.DownloadTask;
 import com.liulishuo.okdownload.StatusUtil;

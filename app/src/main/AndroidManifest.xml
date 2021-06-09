@@ -7,6 +7,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <permission
+        android:label="@string/permiss_title"
+        android:description="@string/permiss_content"
+        android:name="com.github.xiaohu409.androidutildemo.Call"
+        android:protectionLevel="normal">
+
+    </permission>
+
     <application
         android:name=".base.App"
         android:allowBackup="true"
@@ -16,15 +24,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RenderScriptActivity"></activity>
-        <activity android:name=".ViewActivity">
+        <activity android:name=".renderscript.RenderScriptActivity"
+            android:permission="com.github.xiaohu409.androidutildemo.Call"
+            android:exported="true">
+
+        </activity>
+        <activity android:name=".customview.ViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecyclerActivity" />
+        <activity android:name=".filedownload.activity.RecyclerActivity" />
         <activity android:name=".mvc.controller.WorkManagerControllerActivity" />
         <activity android:name=".mvc.controller.LoginControllerActivity" />
         <activity android:name=".mvp.view.LoginActivity">
@@ -49,11 +61,20 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="xiaohu409.github.com"
-                    android:scheme="http" />
+                    android:pathPrefix="/xiaohu409"
+                    android:host="github.com"
+                    android:scheme="https" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "example://gizmos” -->
+                <data android:scheme="example"
+                    android:host="gizmos" />
             </intent-filter>
         </activity>
-        <activity android:name=".FileDemoActivity">
+        <activity android:name=".filedownload.activity.FileDemoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

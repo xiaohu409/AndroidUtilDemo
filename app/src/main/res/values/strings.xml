@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AndroidUtilDemo</string>
+    <string name="permiss_title">自定义权限</string>
+    <string name="permiss_content">描述</string>
 </resources>
