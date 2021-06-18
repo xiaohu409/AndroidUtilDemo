@@ -1,17 +1,22 @@
 package com.github.xiaohu409.androidutildemo.filedownload;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.text.TextUtils;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 
+import com.github.xiaohu409.androidutil.LogUtil;
 import com.liulishuo.okdownload.DownloadTask;
 import com.liulishuo.okdownload.UnifiedListenerManager;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class Utils {
+
+    private static final String TAG = "Utils";
 
     private static UnifiedListenerManager manager;
 
@@ -62,4 +67,23 @@ public class Utils {
         return task;
     }
 
+
+    public static void printFilePath(Context context) {
+        LogUtil.logDebug(TAG, context.getFilesDir().toString());
+        LogUtil.logDebug(TAG, context.getCacheDir().toString());
+        LogUtil.logDebug(TAG, context.getCodeCacheDir().toString());
+        LogUtil.logDebug(TAG, context.getDatabasePath("test").toString());
+        LogUtil.logDebug(TAG, context.getDir("", Context.MODE_PRIVATE).toString());
+        LogUtil.logDebug(TAG, context.getNoBackupFilesDir().toString());
+        LogUtil.logDebug(TAG, context.getFileStreamPath("filetest").toString());
+        LogUtil.logDebug(TAG, context.getPackageCodePath());
+        LogUtil.logDebug(TAG, context.getPackageResourcePath());
+
+//        LogUtil.logDebug(TAG, new ApplicationInfo().dataDir);
+//        LogUtil.logDebug(TAG, new ApplicationInfo().sourceDir);
+//        LogUtil.logDebug(TAG, new ApplicationInfo().nativeLibraryDir);
+//        LogUtil.logDebug(TAG, new ApplicationInfo().publicSourceDir);
+//        LogUtil.logDebug(TAG, Arrays.toString(new ApplicationInfo().splitSourceDirs));
+//        LogUtil.logDebug(TAG, Arrays.toString(new ApplicationInfo().splitPublicSourceDirs));
+    }
 }

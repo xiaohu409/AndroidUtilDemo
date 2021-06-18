@@ -1,9 +1,14 @@
 package com.github.xiaohu409.androidutildemo.base;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+
+import com.github.xiaohu409.androidutildemo.R;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -32,6 +37,9 @@ public abstract class BaseUIActivity extends BaseActivity implements BaseUI, Bas
 
     @Override
     public void initUI() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
 
     }
 

@@ -1,16 +1,20 @@
 package com.github.xiaohu409.androidutildemo;
 
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.le.ScanResult;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -21,21 +25,28 @@ import com.github.xiaohu409.androidutil.DateTimeUtil;
 import com.github.xiaohu409.androidutil.LogUtil;
 import com.github.xiaohu409.androidutil.SharePreUtil;
 import com.github.xiaohu409.androidutil.ToastUtil;
+import com.github.xiaohu409.androidutildemo.base.BaseUIActivity;
 import com.github.xiaohu409.androidutildemo.bean.TestBean;
+import com.github.xiaohu409.androidutildemo.bluetooth.BluetoothListActivity;
 import com.github.xiaohu409.androidutildemo.customview.ViewActivity;
+import com.github.xiaohu409.androidutildemo.databinding.ActivityMainBinding;
+import com.github.xiaohu409.androidutildemo.filedownload.Utils;
 import com.github.xiaohu409.androidutildemo.mvc.controller.LoginControllerActivity;
 import com.github.xiaohu409.androidutildemo.mvc.controller.WorkManagerControllerActivity;
 import com.github.xiaohu409.androidutildemo.renderscript.RenderScriptActivity;
+import com.github.xiaohu409.androidutildemo.share.MyBroadcastReceiver;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import android.Manifest;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseUIActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
-//    private ActivityMainBinding activityMainBinding;
+    private ActivityMainBinding activityMainBinding;
     private FrameLayout flVideoContainer;
 
     @Override
@@ -47,23 +58,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getLifecycle().addObserver(a);
     }
 
-//    @Override
-//    public int getLayoutId() {
-//        return R.layout.activity_main;
-//    }
-//
-//    @Override
-//    public View getView() {
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public View getView() {
 //        activityMainBinding = ActivityMainBinding.inflate(LayoutInflater.from(this));
 //        return activityMainBinding.getRoot();
-//    }
+        return null;
+    }
 
-
+    @Override
     public void initUI() {
+        super.initUI();
         Button utilBtn = findViewById(R.id.test_util_btn_id);
         utilBtn.setOnClickListener(this);
-//        Button bluetoothBtn = findViewById(R.id.bluetooth_btn_id);
-//        bluetoothBtn.setOnClickListener(this);
+        Button bluetoothBtn = findViewById(R.id.bluetooth_btn_id);
+        bluetoothBtn.setOnClickListener(this);
 ////        Button loginBtn = findViewById(R.id.login_btn_id);
 //        activityMainBinding.loginBtnId.setOnClickListener(this);
 ////        Button testFastJsonBtn = findViewById(R.id.test_fast_btn_id);
@@ -164,6 +177,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewBtn.setOnClickListener(this);
         Button renderBtn = findViewById(R.id.render_btn_id);
         renderBtn.setOnClickListener(this);
+
+        Button shareBtn = findViewById(R.id.share_btn_id);
+        shareBtn.setOnClickListener(this);
+
+        Button printBtn = findViewById(R.id.print_btn_id);
+        printBtn.setOnClickListener(this);
     }
 
     @Override
@@ -179,20 +198,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 LogUtil.logDebug(TAG, DateTimeUtil.getDateTime("yyyy-MM-dd HH:mm:ss"));
                 break;
             case R.id.bluetooth_btn_id:
-//                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-//                    requestPermissions(new String[] {
-//                            Manifest.permission.ACCESS_COARSE_LOCATION,
-//                            Manifest.permission.BLUETOOTH,
-//                            Manifest.permission.BLUETOOTH_ADMIN
-//                    }, REQUEST_PERMISSION_BLUETOOTH);
-//                }
-//                else {
-//                    scanBluetooth();
-//                }
+                startActivity(new Intent(this, BluetoothListActivity.class));
                 break;
             case R.id.login_btn_id:
                 //测试登录
-
                 startActivity(new Intent(this, LoginControllerActivity.class));
                 break;
             case R.id.test_fast_btn_id:
@@ -224,45 +233,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.render_btn_id:
                 startActivity(new Intent(this, RenderScriptActivity.class));
                 break;
+
+            case R.id.share_btn_id:
+                Intent contentIntent = new Intent(Intent.ACTION_SEND);
+                contentIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                contentIntent.putExtra(Intent.EXTRA_TITLE, "预览");
+                contentIntent.setType("text/plain");
+                PendingIntent pi = PendingIntent.getBroadcast(this, 0x01,
+                        new Intent(this, MyBroadcastReceiver.class),
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+                Intent shareIntent = Intent.createChooser(contentIntent, null, pi.getIntentSender());
+//                shareIntent.putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS,
+//                        new ComponentName[]{new ComponentName("com.github.xiaohu409.androidutildemo", "com.github.xiaohu409.androidutildemo.share.ShareActivity")});
+
+                startActivity(contentIntent);
+                break;
+            case R.id.print_btn_id:
+                Utils.printFilePath(this);
+                break;
         }
-    }
-
-//    @Override
-//    public void grantedPermission(int type) {
-//        super.grantedPermission(type);
-//        scanBluetooth();
-//    }
-//
-//    @Override
-//    public void deniedPermission(int type) {
-//        super.deniedPermission(type);
-//        ToastUtil.showShort("你拒绝了此权限");
-//    }
-
-
-    /**
-     * 扫码蓝牙
-     */
-    private void scanBluetooth() {
-        final Set<BluetoothDevice> deviceSet = new HashSet<>();
-        BluetoothUtil bluetoothUtil = new BluetoothUtil(this);
-        //设置蓝牙扫描回调方法
-        bluetoothUtil.setBluetoothUtilCallback(new BluetoothUtil.BluetoothUtilCallback() {
-            @Override
-            public void onScanDevice(BluetoothDevice device) {
-//                Log.d(TAG, device.getName() + ":" + device.getAddress());
-                deviceSet.add(device);
-            }
-
-            @Override
-            public void onStop() {
-                System.out.println(deviceSet);
-            }
-        });
-        //打开蓝牙
-        bluetoothUtil.openBluetooth();
-        //开始扫描
-        bluetoothUtil.startDiscoverBluetooth();
     }
 
     @Override
@@ -270,10 +259,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
     }
 
-//    @Override
-//    public void bindData() {
-//        super.bindData();
-//    }
+    @Override
+    public void bindData() {
+        super.bindData();
+
+    }
 
     private void fullScreen() {
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -298,5 +288,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

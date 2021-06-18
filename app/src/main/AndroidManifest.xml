@@ -8,12 +8,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <permission
-        android:label="@string/permiss_title"
-        android:description="@string/permiss_content"
         android:name="com.github.xiaohu409.androidutildemo.Call"
-        android:protectionLevel="normal">
-
-    </permission>
+        android:description="@string/permiss_content"
+        android:label="@string/permiss_title"
+        android:protectionLevel="normal" />
 
     <application
         android:name=".base.App"
@@ -24,18 +22,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".renderscript.RenderScriptActivity"
-            android:permission="com.github.xiaohu409.androidutildemo.Call"
-            android:exported="true">
+        <activity android:name=".bluetooth.BluetoothListActivity"
+            android:parentActivityName=".MainActivity">
 
         </activity>
-        <activity android:name=".customview.ViewActivity">
+        <activity
+            android:name=".share.ShareActivity"
+            android:label="这是一个分享">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.SEND" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/*" />
             </intent-filter>
+
+            <!-- <meta-data -->
+            <!-- android:name="android.service.chooser.chooser_target_service" -->
+            <!-- android:value=".chooser_target_service" /> -->
         </activity>
+        <activity
+            android:name=".renderscript.RenderScriptActivity"
+            android:exported="true"
+            android:permission="com.github.xiaohu409.androidutildemo.Call" />
+        <activity android:name=".customview.ViewActivity"></activity>
         <activity android:name=".filedownload.activity.RecyclerActivity" />
         <activity android:name=".mvc.controller.WorkManagerControllerActivity" />
         <activity android:name=".mvc.controller.LoginControllerActivity" />
@@ -61,25 +71,29 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:pathPrefix="/xiaohu409"
                     android:host="github.com"
+                    android:pathPrefix="/xiaohu409"
                     android:scheme="https" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with "example://gizmos” -->
-                <data android:scheme="example"
-                    android:host="gizmos" />
+                <data
+                    android:host="gizmos"
+                    android:scheme="example" />
             </intent-filter>
         </activity>
         <activity android:name=".filedownload.activity.FileDemoActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity> <!-- 版本更新所要用到的 fileProvider 用于兼容7.0通知栏的安装 -->
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -92,6 +106,16 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <service
+            android:name=".share.MyChooserTargetService"
+            android:permission="android.permission.BIND_CHOOSER_TARGET_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.chooser.ChooserTargetService" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name=".share.MyBroadcastReceiver" />
     </application>
 
 </manifest>
