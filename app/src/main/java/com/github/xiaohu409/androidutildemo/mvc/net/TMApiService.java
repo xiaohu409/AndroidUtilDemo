@@ -7,6 +7,7 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -22,6 +23,6 @@ public interface TMApiService {
     String Login = "/user/login";
     @POST(Login)
     @FormUrlEncoded
-    Observable<LoginBean> login(@FieldMap Map<String, Object> param);
+    Observable<Response<LoginBean>> login(@FieldMap Map<String, Object> param);
 
 }

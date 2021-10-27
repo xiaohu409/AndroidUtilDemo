@@ -18,6 +18,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Response;
 
 public class LoginControllerActivity extends BaseUIActivity {
 
@@ -29,7 +30,7 @@ public class LoginControllerActivity extends BaseUIActivity {
     Button loginBtn;
 //    private EditText userEt;
 //    private EditText passEt;
-    private LoginModel<LoginBean> loginModel;
+    private LoginModel<Response<LoginBean>> loginModel;
 
     @Override
     public int getLayoutId() {
@@ -88,10 +89,24 @@ public class LoginControllerActivity extends BaseUIActivity {
         Map<String, Object> param = new HashMap<>();
         param.put("username", username);
         param.put("password", pass);
-        loginModel.login(param, new LoginView<LoginBean>() {
+        loginModel.login(param, new LoginView<Response<LoginBean>>() {
 
             @Override
-            public void onSuccess(LoginBean loginBean) {
+            public void showLoad() {
+
+            }
+
+            @Override
+            public void hideLoad() {
+
+            }
+
+            @Override
+            public void onSuccess(Response<LoginBean> response) {
+                LoginBean loginBean = response.body();
+                if (loginBean == null) {
+                    return;
+                }
                 if (loginBean.getErrorCode() != 0) {
                     ToastUtil.showShort(loginBean.getErrorMsg());
                     return;

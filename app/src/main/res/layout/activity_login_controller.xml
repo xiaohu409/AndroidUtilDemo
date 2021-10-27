@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".mvc.controller.LoginControllerActivity"
     android:orientation="vertical">
-
+    <include layout="@layout/toolbar" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

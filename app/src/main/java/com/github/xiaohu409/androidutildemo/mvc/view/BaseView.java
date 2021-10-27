@@ -21,4 +21,14 @@ public interface BaseView<T> {
      * @param t
      */
     void onFail(Throwable t);
+
+    /**
+     * 显示加载动画
+     */
+    void showLoad();
+
+    /**
+     * 隐藏加载动画
+     */
+    void hideLoad();
 }

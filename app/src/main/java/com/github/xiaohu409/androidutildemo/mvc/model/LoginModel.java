@@ -5,6 +5,8 @@ import com.github.xiaohu409.androidutildemo.mvc.view.LoginView;
 
 import java.util.Map;
 
+import retrofit2.Response;
+
 /**
  * 项目名称：AndroidUtilDemo
  * 文件名称：
@@ -13,7 +15,7 @@ import java.util.Map;
  * 创建日期：2019/9/27
  * 文件版本：1.0
  */
-public interface LoginModel<T extends BaseBean> {
+public interface LoginModel<T extends Response<?>> {
 
     void login(Map<String, Object> param, LoginView<T> view);
 }

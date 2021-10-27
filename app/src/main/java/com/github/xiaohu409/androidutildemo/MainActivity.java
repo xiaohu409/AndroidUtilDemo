@@ -78,7 +78,8 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
         utilBtn.setOnClickListener(this);
         Button bluetoothBtn = findViewById(R.id.bluetooth_btn_id);
         bluetoothBtn.setOnClickListener(this);
-////        Button loginBtn = findViewById(R.id.login_btn_id);
+        Button loginBtn = findViewById(R.id.login_btn_id);
+        loginBtn.setOnClickListener(this);
 //        activityMainBinding.loginBtnId.setOnClickListener(this);
 ////        Button testFastJsonBtn = findViewById(R.id.test_fast_btn_id);
 //        activityMainBinding.testFastBtnId.setOnClickListener(this);

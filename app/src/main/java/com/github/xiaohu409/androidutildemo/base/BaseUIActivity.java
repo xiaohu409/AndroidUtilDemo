@@ -40,7 +40,6 @@ public abstract class BaseUIActivity extends BaseActivity implements BaseUI, Bas
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
-
     }
 
     @Override
