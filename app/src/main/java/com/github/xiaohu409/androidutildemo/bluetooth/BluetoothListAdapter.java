@@ -10,13 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.xiaohu409.androidutildemo.R;
-import com.github.xiaohu409.androidutildemo.base.HtRecyclerBaseAdapter;
+import com.github.xiaohu409.androidutildemo.base.BaseRecyclerBaseAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class BluetoothListAdapter extends HtRecyclerBaseAdapter<ScanResult, BluetoothListAdapter.Holder> {
+public class BluetoothListAdapter extends BaseRecyclerBaseAdapter<ScanResult, BluetoothListAdapter.Holder> {
 
     public BluetoothListAdapter(Activity activity, List list) {
         super(activity, list);

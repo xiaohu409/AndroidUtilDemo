@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.xiaohu409.androidutildemo.customview.MyLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".customview.TouchEventActivity">
+    <com.github.xiaohu409.androidutildemo.customview.MyTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hellworld"
+        android:padding="8dp"
+        android:id="@+id/tv_id"/>
+</com.github.xiaohu409.androidutildemo.customview.MyLinearLayout>

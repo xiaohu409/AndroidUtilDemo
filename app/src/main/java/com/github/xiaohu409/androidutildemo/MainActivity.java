@@ -25,6 +25,7 @@ import com.github.xiaohu409.androidutil.DateTimeUtil;
 import com.github.xiaohu409.androidutil.LogUtil;
 import com.github.xiaohu409.androidutil.SharePreUtil;
 import com.github.xiaohu409.androidutil.ToastUtil;
+import com.github.xiaohu409.androidutildemo.anim.AnimActivity;
 import com.github.xiaohu409.androidutildemo.base.BaseUIActivity;
 import com.github.xiaohu409.androidutildemo.bean.TestBean;
 import com.github.xiaohu409.androidutildemo.bluetooth.BluetoothListActivity;
@@ -183,6 +184,9 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
 
         Button printBtn = findViewById(R.id.print_btn_id);
         printBtn.setOnClickListener(this);
+
+        Button animBtn = findViewById(R.id.anim_btn_id);
+        animBtn.setOnClickListener(this);
     }
 
     @Override
@@ -250,6 +254,10 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
                 break;
             case R.id.print_btn_id:
                 Utils.printFilePath(this);
+                break;
+
+            case R.id.anim_btn_id:
+                startActivity(new Intent(this, AnimActivity.class));
                 break;
         }
     }

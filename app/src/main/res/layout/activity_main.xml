@@ -82,6 +82,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/print_btn_id"
             android:text="打印文件路径"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/anim_btn_id"
+            android:text="动画"/>
     </LinearLayout>
 
 
