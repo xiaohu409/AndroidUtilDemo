@@ -3,7 +3,7 @@ package com.github.xiaohu409.androidutildemo.mvc.model;
 import androidx.annotation.NonNull;
 
 import com.github.xiaohu409.androidutildemo.mvc.bean.LoginBean;
-import com.github.xiaohu409.androidutildemo.mvc.net.TMApiManager;
+import com.github.xiaohu409.androidutildemo.mvc.net.ApiManager;
 import com.github.xiaohu409.androidutildemo.mvc.view.LoginView;
 
 import java.util.Map;
@@ -11,7 +11,6 @@ import java.util.Map;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -32,7 +31,7 @@ public class LoginModelImp implements LoginModel<Response<LoginBean>> {
     @Override
     public void login(Map<String, Object> param, final LoginView<Response<LoginBean>> view) {
         view.showLoad();
-        TMApiManager.newInstance()
+        ApiManager.newInstance()
                 .getApiService()
                 .login(param)
                 .subscribeOn(Schedulers.io())
@@ -51,30 +50,30 @@ public class LoginModelImp implements LoginModel<Response<LoginBean>> {
                     }
                 })
                 .subscribe(new Observer<Response<LoginBean>>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                System.out.println("onSubscribe " + Thread.currentThread().getName());
-            }
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        System.out.println("onSubscribe " + Thread.currentThread().getName());
+                    }
 
-            @Override
-            public void onNext(Response<LoginBean> value) {
-                view.hideLoad();
-                System.out.println("onNext " + Thread.currentThread().getName());
-                view.onSuccess(value);
-            }
+                    @Override
+                    public void onNext(Response<LoginBean> value) {
+                        view.hideLoad();
+                        System.out.println("onNext " + Thread.currentThread().getName());
+                        view.onSuccess(value);
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                view.hideLoad();
-                System.out.println("onError " + Thread.currentThread().getName());
-                view.onFail(e);
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        view.hideLoad();
+                        System.out.println("onError " + Thread.currentThread().getName());
+                        view.onFail(e);
+                    }
 
-            @Override
-            public void onComplete() {
-                view.hideLoad();
-            }
-        });
+                    @Override
+                    public void onComplete() {
+                        view.hideLoad();
+                    }
+                });
 //        loginBeanCall.enqueue(new Callback<LoginBean>() {
 //            @Override
 //            public void onResponse(Call<LoginBean> call, Response<LoginBean> response) {

@@ -24,6 +24,7 @@ import butterknife.Unbinder;
 public abstract class BaseUIActivity extends BaseActivity implements BaseUI, BaseData, View.OnClickListener {
 
     Unbinder unbinder;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,9 +38,16 @@ public abstract class BaseUIActivity extends BaseActivity implements BaseUI, Bas
 
     @Override
     public void initUI() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
+    }
+
+    public void setTitle(String title) {
+        if (toolbar == null) {
+            return;
+        }
+        toolbar.setTitle(title);
     }
 
     @Override

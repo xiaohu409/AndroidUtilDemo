@@ -50,14 +50,14 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
     private ActivityMainBinding activityMainBinding;
     private FrameLayout flVideoContainer;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initUI();
-        A a = new A();
-        getLifecycle().addObserver(a);
-    }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//        initUI();
+//        A a = new A();
+//        getLifecycle().addObserver(a);
+//    }
 
     @Override
     public int getLayoutId() {
@@ -74,6 +74,7 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
     @Override
     public void initUI() {
         super.initUI();
+        setTitle("主页");
         Button utilBtn = findViewById(R.id.test_util_btn_id);
         utilBtn.setOnClickListener(this);
         Button bluetoothBtn = findViewById(R.id.bluetooth_btn_id);

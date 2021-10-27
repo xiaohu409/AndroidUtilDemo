@@ -17,7 +17,7 @@ import retrofit2.http.POST;
  * hutao
  * 2018/3/20
  */
-public interface TMApiService {
+public interface ApiService {
 
     //登录
     String Login = "/user/login";

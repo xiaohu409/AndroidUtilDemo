@@ -23,6 +23,8 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
+
 import com.github.xiaohu409.androidutildemo.R;
 
 public class FlowView extends View {
@@ -231,7 +233,7 @@ public class FlowView extends View {
         animatorDuration = (long) Math.abs(percent - oldPercent) * 20;
 
         valueAnimator = ValueAnimator.ofFloat(oldPercent, percent).setDuration(animatorDuration);
-        valueAnimator.setInterpolator(new CycleInterpolator(6));
+        valueAnimator.setInterpolator(new AnticipateOvershootInterpolator());
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {

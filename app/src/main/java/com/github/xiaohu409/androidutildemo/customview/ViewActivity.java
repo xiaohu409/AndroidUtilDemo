@@ -13,7 +13,7 @@ public class ViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_view);
-        FlowView flowView = (FlowView) findViewById(R.id.flow_view_id);
+        FlowView flowView = findViewById(R.id.flow_view_id);
         flowView.setSpeed(100f);
     }
 }

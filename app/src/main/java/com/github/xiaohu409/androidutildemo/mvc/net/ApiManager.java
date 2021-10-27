@@ -11,28 +11,28 @@ import retrofit2.Retrofit;
  * 日期：         2019/2/15
  * 版本：         v1.0
  */
-public class TMApiManager {
+public class ApiManager {
 
-    private static TMApiManager manager;
-    private TMApiService apiService;
+    private static ApiManager manager;
+    private ApiService apiService;
 
-    private TMApiManager() {
+    private ApiManager() {
         Retrofit retrofit = RetrofitUtil.newInstance().getRetrofit();
-        apiService = retrofit.create(TMApiService.class);
+        apiService = retrofit.create(ApiService.class);
     }
 
-    public static TMApiManager newInstance() {
+    public static ApiManager newInstance() {
         if (manager == null) {
-            synchronized (TMApiManager.class) {
+            synchronized (ApiManager.class) {
                 if (manager == null) {
-                    manager = new TMApiManager();
+                    manager = new ApiManager();
                 }
             }
         }
         return manager;
     }
 
-    public TMApiService getApiService() {
+    public ApiService getApiService() {
         return apiService;
     }
 }
