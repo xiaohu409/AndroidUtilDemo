@@ -1,6 +1,5 @@
 package com.github.xiaohu409.androidutildemo.mvc.model;
 
-import com.github.xiaohu409.androidutildemo.mvc.bean.BaseBean;
 import com.github.xiaohu409.androidutildemo.mvc.view.LoginView;
 
 import java.util.Map;

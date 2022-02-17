@@ -16,7 +16,6 @@ import com.github.xiaohu409.androidutildemo.R;
 
 
 /**
- * 项目名称   ：CDFYAPP
  * 文件名称   ：HtEditText
  * 文件描述   ：带有删除按钮的文本框
  * 作者       ：胡涛
@@ -49,9 +48,9 @@ public class HtEditText extends LinearLayout implements TextWatcher, View.OnClic
      */
     private void initView() {
         View.inflate(getContext(), R.layout.ht_edit_text, this);
-        editText = (EditText) findViewById(R.id.edit_et_id);
+        editText = findViewById(R.id.edit_et_id);
         editText.addTextChangedListener(this);
-        ImageView delView = (ImageView) findViewById(R.id.del_iv_id);
+        ImageView delView = findViewById(R.id.del_iv_id);
         delView.setOnClickListener(this);
     }
 
