@@ -34,7 +34,9 @@ public class WorkManagerControllerActivity extends BaseUIActivity {
     }
 
     private void runWork() {
-        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(UploadWorker.class).build();
+        OneTimeWorkRequest workRequest = new OneTimeWorkRequest
+                .Builder(UploadWorker.class)
+                .build();
         WorkManager.getInstance(this).enqueue(workRequest);
 //        WorkManager.getInstance(this).getWorkInfoByIdLiveData(workRequest.getId()).observe(this, new Observer<WorkInfo>() {
 //            @Override

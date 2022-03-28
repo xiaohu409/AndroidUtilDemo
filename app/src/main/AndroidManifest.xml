@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.xiaohu409.androidutildemo" >
+    package="com.github.xiaohu409.androidutildemo">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
@@ -21,9 +21,9 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".anim.AnimActivity"
+            android:name=".mvc.controller.TablayoutActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,10 +31,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".anim.AnimActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".customview.TouchEventActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,7 +54,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".share.ShareActivity"
-            android:label="这是一个分享" >
+            android:label="这是一个分享">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -67,7 +75,7 @@
         <activity android:name=".filedownload.activity.RecyclerActivity" />
         <activity android:name=".mvc.controller.WorkManagerControllerActivity" />
         <activity android:name=".mvc.controller.LoginControllerActivity" />
-        <activity android:name=".mvp.view.LoginActivity" >
+        <activity android:name=".mvp.view.LoginActivity">
             <intent-filter>
                 <action android:name="hutao" />
 
@@ -76,26 +84,26 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden" >
+            android:configChanges="orientation|screenSize|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-             <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
-                 <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
 
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="github.com"
                     android:pathPrefix="/xiaohu409"
                     android:scheme="https" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with "example://gizmos” -->
@@ -104,7 +112,7 @@
                     android:scheme="example" />
             </intent-filter>
         </activity>
-        <activity android:name=".filedownload.activity.FileDemoActivity" >
+        <activity android:name=".filedownload.activity.FileDemoActivity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -117,7 +125,7 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true" >
+            android:grantUriPermissions="true">
 
             <!-- 元数据 -->
             <meta-data
@@ -127,7 +135,7 @@
 
         <service
             android:name=".share.MyChooserTargetService"
-            android:permission="android.permission.BIND_CHOOSER_TARGET_SERVICE" >
+            android:permission="android.permission.BIND_CHOOSER_TARGET_SERVICE">
             <intent-filter>
                 <action android:name="android.service.chooser.ChooserTargetService" />
             </intent-filter>
@@ -139,7 +147,7 @@
             android:name=".QuickSettingService"
             android:icon="@drawable/ic_scan"
             android:label="快速设置"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" >
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>

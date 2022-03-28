@@ -11,7 +11,6 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.github.xiaohu409.androidutildemo.A;
 import com.github.xiaohu409.androidutildemo.R;
 
 public class AnimActivity extends AppCompatActivity implements View.OnClickListener {
