@@ -88,6 +88,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/anim_btn_id"
             android:text="动画"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="视频"
+            android:id="@+id/player_btn_id"/>
     </LinearLayout>
 
 

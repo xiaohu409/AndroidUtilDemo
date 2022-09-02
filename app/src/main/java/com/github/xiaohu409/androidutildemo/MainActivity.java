@@ -32,6 +32,7 @@ import com.github.xiaohu409.androidutildemo.bluetooth.BluetoothListActivity;
 import com.github.xiaohu409.androidutildemo.customview.ViewActivity;
 import com.github.xiaohu409.androidutildemo.databinding.ActivityMainBinding;
 import com.github.xiaohu409.androidutildemo.filedownload.Utils;
+import com.github.xiaohu409.androidutildemo.mvc.controller.KPlayerActivity;
 import com.github.xiaohu409.androidutildemo.mvc.controller.LoginControllerActivity;
 import com.github.xiaohu409.androidutildemo.mvc.controller.WorkManagerControllerActivity;
 import com.github.xiaohu409.androidutildemo.renderscript.RenderScriptActivity;
@@ -189,6 +190,9 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
 
         Button animBtn = findViewById(R.id.anim_btn_id);
         animBtn.setOnClickListener(this);
+
+        Button playerBtn = findViewById(R.id.player_btn_id);
+        playerBtn.setOnClickListener(this);
     }
 
     @Override
@@ -260,6 +264,9 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
 
             case R.id.anim_btn_id:
                 startActivity(new Intent(this, AnimActivity.class));
+                break;
+            case R.id.player_btn_id:
+                startActivity(new Intent(this, KPlayerActivity.class));
                 break;
         }
     }
